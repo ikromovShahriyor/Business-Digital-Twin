@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/src/">
+    <Project Path="src/BusinessTwin.Api/BusinessTwin.Api.csproj" />
+    <Project Path="src/BusinessTwin.Application/BusinessTwin.Application.csproj" />
+    <Project Path="src/BusinessTwin.Domain/BusinessTwin.Domain.csproj" />
+    <Project Path="src/BusinessTwin.Infrastructure/BusinessTwin.Infrastructure.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/BusinessTwin.Tests.Integration/BusinessTwin.Tests.Integration.csproj" />
+    <Project Path="tests/BusinessTwin.Tests.Unit/BusinessTwin.Tests.Unit.csproj" />
+  </Folder>
+</Solution>
