@@ -120,16 +120,72 @@ export default function LoginPage() {
             </button>
           </form>
 
-          {/* Demo Credentials Helper */}
-          <div className="pt-3 border-t border-slate-800">
-            <button
-              type="button"
-              onClick={handleQuickFill}
-              className="w-full py-2 rounded-xl bg-slate-900/80 hover:bg-slate-800/80 border border-slate-700/60 text-xs text-indigo-300 font-semibold flex items-center justify-center gap-2 transition-colors"
-            >
-              <ShieldCheck className="w-4 h-4 text-emerald-400" />
-              <span>{t("fill_demo_creds")}</span>
-            </button>
+          {/* Role-Based Quick Fill Helpers */}
+          <div className="pt-3 border-t border-slate-800 space-y-2">
+            <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 text-center">
+              Tezkor Rollar bilan Kirish (Demo):
+            </p>
+            <div className="grid grid-cols-2 gap-2">
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("owner@business-twin.com");
+                  setPassword("Admin12345!");
+                }}
+                className="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-indigo-500/30 text-left transition-colors"
+              >
+                <div className="flex items-center gap-1.5 text-indigo-300 font-bold text-[11px]">
+                  <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
+                  <span>Super Admin (Owner)</span>
+                </div>
+                <p className="text-[10px] text-slate-400 truncate mt-0.5">owner@business-twin.com</p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("director@business-twin.com");
+                  setPassword("Admin12345!");
+                }}
+                className="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-cyan-500/30 text-left transition-colors"
+              >
+                <div className="flex items-center gap-1.5 text-cyan-300 font-bold text-[11px]">
+                  <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Bosh Direktor (Admin)</span>
+                </div>
+                <p className="text-[10px] text-slate-400 truncate mt-0.5">director@business-twin.com</p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("manager@business-twin.com");
+                  setPassword("Admin12345!");
+                }}
+                className="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-amber-500/30 text-left transition-colors"
+              >
+                <div className="flex items-center gap-1.5 text-amber-300 font-bold text-[11px]">
+                  <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
+                  <span>Filial Menejeri</span>
+                </div>
+                <p className="text-[10px] text-slate-400 truncate mt-0.5">manager@business-twin.com</p>
+              </button>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setEmail("analyst@business-twin.com");
+                  setPassword("Admin12345!");
+                }}
+                className="p-2 rounded-xl bg-slate-900/90 hover:bg-slate-800 border border-emerald-500/30 text-left transition-colors"
+              >
+                <div className="flex items-center gap-1.5 text-emerald-300 font-bold text-[11px]">
+                  <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
+                  <span>Bosh Tahlilchi (CFO)</span>
+                </div>
+                <p className="text-[10px] text-slate-400 truncate mt-0.5">analyst@business-twin.com</p>
+              </button>
+            </div>
           </div>
         </div>
 

@@ -29,8 +29,8 @@ public static class DatabaseSeeder
             IsActive = true
         };
 
-        // 2. Create Owner User
-        var user = new User
+        // 2. Create System Users for All Roles
+        var ownerUser = new User
         {
             Id = Guid.Parse("22222222-2222-2222-2222-222222222222"),
             Email = "owner@business-twin.com",
@@ -43,13 +43,51 @@ public static class DatabaseSeeder
             LastLoginAtUtc = DateTime.UtcNow
         };
 
-        var role = new UserCompanyRole
+        var directorUser = new User
         {
-            Id = Guid.NewGuid(),
-            UserId = user.Id,
-            CompanyId = company.Id,
-            Role = UserRole.Owner
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222223"),
+            Email = "director@business-twin.com",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin12345!", 11),
+            FirstName = "Shahriyor",
+            LastName = "Ikromov",
+            Phone = "+998 90 987 6543",
+            PreferredLanguage = "uz",
+            IsActive = true,
+            LastLoginAtUtc = DateTime.UtcNow
         };
+
+        var managerUser = new User
+        {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222224"),
+            Email = "manager@business-twin.com",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin12345!", 11),
+            FirstName = "Bobur",
+            LastName = "Aliyev",
+            Phone = "+998 93 111 2233",
+            PreferredLanguage = "uz",
+            IsActive = true,
+            LastLoginAtUtc = DateTime.UtcNow
+        };
+
+        var analystUser = new User
+        {
+            Id = Guid.Parse("22222222-2222-2222-2222-222222222225"),
+            Email = "analyst@business-twin.com",
+            PasswordHash = BCrypt.Net.BCrypt.HashPassword("Admin12345!", 11),
+            FirstName = "Dilnoza",
+            LastName = "Karimova",
+            Phone = "+998 97 444 5566",
+            PreferredLanguage = "uz",
+            IsActive = true,
+            LastLoginAtUtc = DateTime.UtcNow
+        };
+
+        var roleOwner = new UserCompanyRole { Id = Guid.NewGuid(), UserId = ownerUser.Id, CompanyId = company.Id, Role = UserRole.Owner };
+        var roleDirector = new UserCompanyRole { Id = Guid.NewGuid(), UserId = directorUser.Id, CompanyId = company.Id, Role = UserRole.Admin };
+        var roleManager = new UserCompanyRole { Id = Guid.NewGuid(), UserId = managerUser.Id, CompanyId = company.Id, Role = UserRole.Manager };
+        var roleAnalyst = new UserCompanyRole { Id = Guid.NewGuid(), UserId = analystUser.Id, CompanyId = company.Id, Role = UserRole.Analyst };
+
+        var user = ownerUser;
 
         // 3. Branches (Aynan 2 ta filial)
         var mainBranch = new Branch
@@ -306,8 +344,8 @@ public static class DatabaseSeeder
         };
 
         context.Companies.Add(company);
-        context.Users.Add(user);
-        context.UserCompanyRoles.Add(role);
+        context.Users.AddRange(ownerUser, directorUser, managerUser, analystUser);
+        context.UserCompanyRoles.AddRange(roleOwner, roleDirector, roleManager, roleAnalyst);
         context.Branches.AddRange(mainBranch, branch2);
         context.Suppliers.AddRange(sup1, sup2, sup3, sup4, sup5);
         context.Products.AddRange(p1, p2, p3, p4, p5, p6, p7, p8, p9, p10);
