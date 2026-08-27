@@ -17,12 +17,19 @@ public static class DependencyInjection
         {
             var isTesting = Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") == "Testing" 
                          || Environment.GetEnvironmentVariable("USE_INMEMORY_DB") == "true"
-                         || configuration.GetValue<bool>("UseInMemoryDb")
-                         || string.IsNullOrEmpty(connectionString);
+                         || configuration.GetValue<bool>("UseInMemoryDb");
+
+            var useSqlite = configuration.GetValue<bool>("UseSqlite")
+                         || Environment.GetEnvironmentVariable("USE_SQLITE") == "true";
 
             if (isTesting)
             {
                 options.UseInMemoryDatabase("BusinessTwinDb");
+            }
+            else if (useSqlite || string.IsNullOrEmpty(connectionString) || connectionString.Contains(".db") || connectionString.Contains("Data Source="))
+            {
+                var sqliteConn = configuration.GetConnectionString("Sqlite") ?? "Data Source=business_twin.db";
+                options.UseSqlite(sqliteConn);
             }
             else
             {
