@@ -173,14 +173,16 @@ public class DigitalTwinService : IDigitalTwinService
         {
             var mDate = DateTime.UtcNow.AddMonths(-i);
             var mLabel = mDate.ToString("MMM yyyy");
-            var factor = 1.0m - (i * 0.04m); // Realistic historical curve
+            var factor = 1.0m - (i * 0.05m);
             var hRev = Math.Round(monthlyRevenue * factor, 2);
-            var hExp = Math.Round(totalMonthlyExpenses * (1.0m - (i * 0.02m)), 2);
+            var hCogs = Math.Round(monthlyCogs * factor, 2);
+            var hOpex = Math.Round(monthlyOpex * (1.0m - (i * 0.02m)), 2);
+            var hNetProfit = Math.Round(hRev - hCogs - hOpex, 2);
             trends.Add(new MonthlyTrendPointDto(
                 mLabel,
                 hRev,
-                hExp,
-                hRev - hExp,
+                hCogs + hOpex,
+                hNetProfit,
                 OrderCount: (int)(recentSales.Count * factor)
             ));
         }

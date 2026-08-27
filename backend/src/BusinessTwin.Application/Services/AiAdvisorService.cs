@@ -210,10 +210,11 @@ public class AiAdvisorService : IAiAdvisorService
             .Include(e => e.Branch)
             .ToListAsync(cancellationToken);
 
-        var customers = await _context.Customers
+        var customers = (await _context.Customers
             .Where(c => c.CompanyId == companyId && !c.IsDeleted)
+            .ToListAsync(cancellationToken))
             .OrderByDescending(c => c.TotalSpent)
-            .ToListAsync(cancellationToken);
+            .ToList();
 
         var products = await _context.Products
             .Where(p => p.CompanyId == companyId && p.IsActive && !p.IsDeleted)

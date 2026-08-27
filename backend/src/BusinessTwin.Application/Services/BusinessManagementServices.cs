@@ -328,10 +328,7 @@ public class BusinessManagementService : IBusinessManagementService
             query = query.Where(c => c.Name.ToLower().Contains(s) || (c.Phone != null && c.Phone.Contains(s)) || (c.Email != null && c.Email.ToLower().Contains(s)));
         }
 
-        if (segment.HasValue)
-            query = query.Where(c => c.Segment == segment.Value);
-
-        var list = await query.OrderByDescending(c => c.TotalSpent).ToListAsync(cancellationToken);
+        var list = (await query.ToListAsync(cancellationToken)).OrderByDescending(c => c.TotalSpent).ToList();
 
         return list.Select(c => new CustomerDto(
             c.Id,
@@ -437,7 +434,7 @@ public class BusinessManagementService : IBusinessManagementService
             query = query.Where(s => s.Name.ToLower().Contains(term) || (s.Phone != null && s.Phone.Contains(term)) || (s.Category.ToLower().Contains(term)));
         }
 
-        var list = await query.OrderByDescending(s => s.TotalPurchases).ToListAsync(cancellationToken);
+        var list = (await query.ToListAsync(cancellationToken)).OrderByDescending(s => s.TotalPurchases).ToList();
 
         return list.Select(s => new SupplierDto(
             s.Id,

@@ -215,17 +215,17 @@ public static class DatabaseSeeder
             }
         };
 
-        // 10. Sales (Sotuvlar jurnali)
+        // 10. Sales (Sotuvlar jurnali - 10 ta to'liq tranzaksiya)
         var s1 = new Sale
         {
             Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, CustomerId = c1.Id, EmployeeId = emp2.Id,
             SaleNumber = "INV-2026-00201", SaleDateUtc = DateTime.UtcNow.AddDays(-2),
-            SubTotal = 13800m, DiscountAmount = 300m, TotalAmount = 13500m, TotalCostAmount = 8250m, PaidAmount = 11000m,
+            SubTotal = 13800m, DiscountAmount = 300m, TotalAmount = 13500m, TotalCostAmount = 5250m, PaidAmount = 11000m,
             Channel = SaleChannel.B2BContract, Status = SaleStatus.OnCredit, PaymentMethod = "BankTransfer",
             Items = new List<SaleItem>
             {
-                new() { ProductId = p1.Id, Quantity = 10m, UnitPrice = 1150m, CostPrice = 750m },
-                new() { ProductId = p4.Id, Quantity = 5m, UnitPrice = 320m, CostPrice = 190m }
+                new() { ProductId = p1.Id, Quantity = 10m, UnitPrice = 1150m, CostPrice = 450m },
+                new() { ProductId = p4.Id, Quantity = 5m, UnitPrice = 460m, CostPrice = 150m }
             }
         };
 
@@ -233,11 +233,11 @@ public static class DatabaseSeeder
         {
             Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, CustomerId = c2.Id, EmployeeId = emp3.Id,
             SaleNumber = "INV-2026-00202", SaleDateUtc = DateTime.UtcNow.AddDays(-4),
-            SubTotal = 10800m, DiscountAmount = 200m, TotalAmount = 10600m, TotalCostAmount = 6720m, PaidAmount = 8800m,
+            SubTotal = 11200m, DiscountAmount = 200m, TotalAmount = 11000m, TotalCostAmount = 3900m, PaidAmount = 9200m,
             Channel = SaleChannel.B2BContract, Status = SaleStatus.OnCredit, PaymentMethod = "BankTransfer",
             Items = new List<SaleItem>
             {
-                new() { ProductId = p2.Id, Quantity = 15m, UnitPrice = 720m, CostPrice = 480m }
+                new() { ProductId = p2.Id, Quantity = 14m, UnitPrice = 800m, CostPrice = 280m }
             }
         };
 
@@ -245,11 +245,11 @@ public static class DatabaseSeeder
         {
             Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, CustomerId = c3.Id, EmployeeId = emp2.Id,
             SaleNumber = "INV-2026-00203", SaleDateUtc = DateTime.UtcNow.AddDays(-6),
-            SubTotal = 9200m, DiscountAmount = 0m, TotalAmount = 9200m, TotalCostAmount = 6000m, PaidAmount = 9200m,
+            SubTotal = 9800m, DiscountAmount = 0m, TotalAmount = 9800m, TotalCostAmount = 3400m, PaidAmount = 9800m,
             Channel = SaleChannel.B2BContract, Status = SaleStatus.Completed, PaymentMethod = "BankTransfer",
             Items = new List<SaleItem>
             {
-                new() { ProductId = p1.Id, Quantity = 8m, UnitPrice = 1150m, CostPrice = 750m }
+                new() { ProductId = p1.Id, Quantity = 8m, UnitPrice = 1225m, CostPrice = 425m }
             }
         };
 
@@ -257,11 +257,11 @@ public static class DatabaseSeeder
         {
             Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, CustomerId = c4.Id, EmployeeId = emp9.Id,
             SaleNumber = "INV-2026-00204", SaleDateUtc = DateTime.UtcNow.AddDays(-3),
-            SubTotal = 8640m, DiscountAmount = 140m, TotalAmount = 8500m, TotalCostAmount = 5760m, PaidAmount = 7300m,
+            SubTotal = 9400m, DiscountAmount = 200m, TotalAmount = 9200m, TotalCostAmount = 3300m, PaidAmount = 8000m,
             Channel = SaleChannel.B2BContract, Status = SaleStatus.OnCredit, PaymentMethod = "BankTransfer",
             Items = new List<SaleItem>
             {
-                new() { ProductId = p2.Id, Quantity = 12m, UnitPrice = 720m, CostPrice = 480m }
+                new() { ProductId = p2.Id, Quantity = 12m, UnitPrice = 780m, CostPrice = 275m }
             }
         };
 
@@ -269,11 +269,47 @@ public static class DatabaseSeeder
         {
             Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, CustomerId = c5.Id, EmployeeId = emp10.Id,
             SaleNumber = "INV-2026-00205", SaleDateUtc = DateTime.UtcNow.AddDays(-5),
-            SubTotal = 6300m, DiscountAmount = 0m, TotalAmount = 6300m, TotalCostAmount = 3800m, PaidAmount = 6300m,
+            SubTotal = 8500m, DiscountAmount = 0m, TotalAmount = 8500m, TotalCostAmount = 3100m, PaidAmount = 8500m,
             Channel = SaleChannel.DirectRetail, Status = SaleStatus.Completed, PaymentMethod = "Card",
             Items = new List<SaleItem>
             {
-                new() { ProductId = p4.Id, Quantity = 20m, UnitPrice = 320m, CostPrice = 190m }
+                new() { ProductId = p4.Id, Quantity = 20m, UnitPrice = 425m, CostPrice = 155m }
+            }
+        };
+
+        var s6 = new Sale
+        {
+            Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, CustomerId = c6.Id, EmployeeId = emp3.Id,
+            SaleNumber = "INV-2026-00206", SaleDateUtc = DateTime.UtcNow.AddDays(-7),
+            SubTotal = 9500m, DiscountAmount = 300m, TotalAmount = 9200m, TotalCostAmount = 3200m, PaidAmount = 9200m,
+            Channel = SaleChannel.B2BContract, Status = SaleStatus.Completed, PaymentMethod = "BankTransfer",
+            Items = new List<SaleItem>
+            {
+                new() { ProductId = p3.Id, Quantity = 75m, UnitPrice = 120m, CostPrice = 40m }
+            }
+        };
+
+        var s7 = new Sale
+        {
+            Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, CustomerId = c7.Id, EmployeeId = emp9.Id,
+            SaleNumber = "INV-2026-00207", SaleDateUtc = DateTime.UtcNow.AddDays(-8),
+            SubTotal = 8900m, DiscountAmount = 100m, TotalAmount = 8800m, TotalCostAmount = 3150m, PaidAmount = 8800m,
+            Channel = SaleChannel.OnlineECommerce, Status = SaleStatus.Completed, PaymentMethod = "Card",
+            Items = new List<SaleItem>
+            {
+                new() { ProductId = p5.Id, Quantity = 40m, UnitPrice = 220m, CostPrice = 78m }
+            }
+        };
+
+        var s8 = new Sale
+        {
+            Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, CustomerId = c8.Id, EmployeeId = emp2.Id,
+            SaleNumber = "INV-2026-00208", SaleDateUtc = DateTime.UtcNow.AddDays(-1),
+            SubTotal = 8500m, DiscountAmount = 0m, TotalAmount = 8500m, TotalCostAmount = 3100m, PaidAmount = 8500m,
+            Channel = SaleChannel.DirectRetail, Status = SaleStatus.Completed, PaymentMethod = "Card",
+            Items = new List<SaleItem>
+            {
+                new() { ProductId = p6.Id, Quantity = 25m, UnitPrice = 340m, CostPrice = 124m }
             }
         };
 
@@ -288,10 +324,13 @@ public static class DatabaseSeeder
         var payments = new List<Payment>
         {
             new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s1.Id, Type = PaymentType.InflowSale, Amount = 11000m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-001", PaymentDateUtc = DateTime.UtcNow.AddDays(-2), PayerOrPayee = c1.Name, Notes = "B2B Shartnoma to'lovi" },
-            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s2.Id, Type = PaymentType.InflowSale, Amount = 8800m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-002", PaymentDateUtc = DateTime.UtcNow.AddDays(-4), PayerOrPayee = c2.Name, Notes = "B2B Shartnoma to'lovi" },
-            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s3.Id, Type = PaymentType.InflowSale, Amount = 9200m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-003", PaymentDateUtc = DateTime.UtcNow.AddDays(-6), PayerOrPayee = c3.Name, Notes = "To'liq to'langan" },
-            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, SaleId = s4.Id, Type = PaymentType.InflowSale, Amount = 7300m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-004", PaymentDateUtc = DateTime.UtcNow.AddDays(-3), PayerOrPayee = c4.Name, Notes = "B2B avans to'lovi" },
-            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, SaleId = s5.Id, Type = PaymentType.InflowSale, Amount = 6300m, PaymentMethod = "Card", TransactionReference = "PAY-2026-005", PaymentDateUtc = DateTime.UtcNow.AddDays(-5), PayerOrPayee = c5.Name, Notes = "Karta orqali to'lov" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s2.Id, Type = PaymentType.InflowSale, Amount = 9200m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-002", PaymentDateUtc = DateTime.UtcNow.AddDays(-4), PayerOrPayee = c2.Name, Notes = "B2B Shartnoma to'lovi" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s3.Id, Type = PaymentType.InflowSale, Amount = 9800m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-003", PaymentDateUtc = DateTime.UtcNow.AddDays(-6), PayerOrPayee = c3.Name, Notes = "To'liq to'langan" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, SaleId = s4.Id, Type = PaymentType.InflowSale, Amount = 8000m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-004", PaymentDateUtc = DateTime.UtcNow.AddDays(-3), PayerOrPayee = c4.Name, Notes = "B2B avans to'lovi" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, SaleId = s5.Id, Type = PaymentType.InflowSale, Amount = 8500m, PaymentMethod = "Card", TransactionReference = "PAY-2026-005", PaymentDateUtc = DateTime.UtcNow.AddDays(-5), PayerOrPayee = c5.Name, Notes = "Karta orqali to'lov" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s6.Id, Type = PaymentType.InflowSale, Amount = 9200m, PaymentMethod = "BankTransfer", TransactionReference = "PAY-2026-006", PaymentDateUtc = DateTime.UtcNow.AddDays(-7), PayerOrPayee = c6.Name, Notes = "B2B to'liq to'lov" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, SaleId = s7.Id, Type = PaymentType.InflowSale, Amount = 8800m, PaymentMethod = "Card", TransactionReference = "PAY-2026-007", PaymentDateUtc = DateTime.UtcNow.AddDays(-8), PayerOrPayee = c7.Name, Notes = "Online to'lov" },
+            new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, SaleId = s8.Id, Type = PaymentType.InflowSale, Amount = 8500m, PaymentMethod = "Card", TransactionReference = "PAY-2026-008", PaymentDateUtc = DateTime.UtcNow.AddDays(-1), PayerOrPayee = c8.Name, Notes = "Chakana savdo to'lovi" },
             new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = mainBranch.Id, PurchaseId = pur1.Id, Type = PaymentType.OutflowPurchase, Amount = 10500m, PaymentMethod = "BankTransfer", TransactionReference = "SUPP-2026-001", PaymentDateUtc = DateTime.UtcNow.AddDays(-15), PayerOrPayee = sup1.Name, Notes = "Xarid avansi" },
             new() { Id = Guid.NewGuid(), CompanyId = company.Id, BranchId = branch2.Id, PurchaseId = pur2.Id, Type = PaymentType.OutflowPurchase, Amount = 4400m, PaymentMethod = "BankTransfer", TransactionReference = "SUPP-2026-002", PaymentDateUtc = DateTime.UtcNow.AddDays(-12), PayerOrPayee = sup2.Name, Notes = "Xarid to'lovi" }
         };
@@ -353,7 +392,7 @@ public static class DatabaseSeeder
         context.Customers.AddRange(c1, c2, c3, c4, c5, c6, c7, c8, c9, c10);
         context.InventoryItems.AddRange(invList);
         context.Purchases.AddRange(pur1, pur2);
-        context.Sales.AddRange(s1, s2, s3, s4, s5);
+        context.Sales.AddRange(s1, s2, s3, s4, s5, s6, s7, s8);
         context.DebtRecords.AddRange(debt1, debt2, debt3, debt4, debt5);
         context.Payments.AddRange(payments);
         context.Expenses.AddRange(expenses);
