@@ -61,14 +61,11 @@ builder.Services.AddRateLimiter(options =>
 });
 
 // 4. CORS Configuration
-var allowedOrigins = (builder.Configuration["Cors:AllowedOrigins"] ?? "http://localhost:3000")
-    .Split(',', StringSplitOptions.RemoveEmptyEntries | StringSplitOptions.TrimEntries);
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("AllowClientApps", policy =>
     {
-        policy.WithOrigins(allowedOrigins)
+        policy.SetIsOriginAllowed(_ => true)
               .AllowAnyHeader()
               .AllowAnyMethod()
               .AllowCredentials();
