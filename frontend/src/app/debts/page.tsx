@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { useI18n } from "@/lib/i18n";
 import { DebtRecord, DebtSummary } from "@/types";
 import { api } from "@/lib/api";
 import {
@@ -18,6 +19,7 @@ import {
 } from "lucide-react";
 
 export default function DebtsPage() {
+  const { t } = useI18n();
   const [debts, setDebts] = useState<DebtRecord[]>([]);
   const [summary, setSummary] = useState<DebtSummary | null>(null);
   const [activeTab, setActiveTab] = useState<"CustomerDebt" | "SupplierDebt">("CustomerDebt");
@@ -146,7 +148,7 @@ export default function DebtsPage() {
             }`}
           >
             <ArrowDownLeft className="w-4 h-4 text-emerald-400" />
-            <span>Mijozlar Nasiyasi (Kutilayotgan Tushum)</span>
+            <span>{t("receivable_type")}</span>
           </button>
 
           <button
@@ -158,7 +160,7 @@ export default function DebtsPage() {
             }`}
           >
             <ArrowUpRight className="w-4 h-4 text-rose-400" />
-            <span>Yetkazib Beruvchilarga Qarzimiz (Majburiyatlar)</span>
+            <span>{t("payable_type")}</span>
           </button>
         </div>
 
@@ -170,7 +172,7 @@ export default function DebtsPage() {
         ) : debts.length === 0 ? (
           <div className="py-16 text-center rounded-2xl glass-card border border-slate-800 text-slate-400">
             <CheckCircle2 className="w-12 h-12 text-emerald-500/60 mx-auto mb-3" />
-            <p className="font-medium">Ushbu toifada faol qarz yozuvlari mavjud emas</p>
+            <p className="font-medium">{t("empty_debts")}</p>
           </div>
         ) : (
           <div className="rounded-xl glass-card border border-slate-800/80 overflow-hidden">
@@ -178,14 +180,14 @@ export default function DebtsPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Qarz Nomi / Hujjat</th>
-                    <th className="py-3 px-4">{activeTab === "CustomerDebt" ? "Mijoz" : "Yetkazib Beruvchi"}</th>
-                    <th className="py-3 px-4">Muddat (Due Date)</th>
-                    <th className="py-3 px-4 text-right">Umumiy Summa</th>
-                    <th className="py-3 px-4 text-right">To'langan</th>
-                    <th className="py-3 px-4 text-right">Qoldiq Qarz</th>
-                    <th className="py-3 px-4">Holat</th>
-                    <th className="py-3 px-4 text-right">Amal</th>
+                    <th className="py-3 px-4">{t("debt_title")}</th>
+                    <th className="py-3 px-4">{activeTab === "CustomerDebt" ? t("customer") : t("supplier")}</th>
+                    <th className="py-3 px-4">{t("due_date")}</th>
+                    <th className="py-3 px-4 text-right">{t("sum_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("paid_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("debt_title")}</th>
+                    <th className="py-3 px-4">{t("status_col")}</th>
+                    <th className="py-3 px-4 text-right">{t("actions")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -199,7 +201,7 @@ export default function DebtsPage() {
                           {d.notes && <span className="block text-[11px] text-slate-500 font-normal">{d.notes}</span>}
                         </td>
                         <td className="py-3.5 px-4 text-indigo-300 font-medium">
-                          {activeTab === "CustomerDebt" ? d.customerName || "Mijoz" : d.supplierName || "Yetkazib beruvchi"}
+                          {activeTab === "CustomerDebt" ? d.customerName || t("customer") : d.supplierName || t("supplier")}
                         </td>
                         <td className="py-3.5 px-4 text-slate-400">
                           {d.dueDateUtc ? (
@@ -207,7 +209,7 @@ export default function DebtsPage() {
                               {isOverdue && <AlertCircle className="w-3 h-3" />}
                               {new Date(d.dueDateUtc).toLocaleDateString()}
                             </span>
-                          ) : "Muddatsiz"}
+                          ) : "—"}
                         </td>
                         <td className="py-3.5 px-4 text-right font-bold text-slate-200">
                           ${d.totalAmount.toLocaleString()}

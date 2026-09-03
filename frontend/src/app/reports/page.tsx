@@ -74,10 +74,10 @@ export default function ReportsPage() {
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
               <FileBarChart2 className="w-7 h-7 text-indigo-400" />
-              Boshqaruv va Moliyaviy Hisobotlar (P&L, Cash Flow)
+              {t("reports_title")}
             </h1>
             <p className="text-sm text-slate-400 mt-1">
-              Daromad, xarajat, foyda, pul oqimi va ombor kapitali balansi
+              {t("reports_subtitle")}
             </p>
           </div>
           <button
@@ -85,7 +85,7 @@ export default function ReportsPage() {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all shadow-lg"
           >
             <Download className="w-4 h-4" />
-            <span>CSV Eksport Qilish</span>
+            <span>{t("export_csv")}</span>
           </button>
         </div>
 
@@ -98,29 +98,29 @@ export default function ReportsPage() {
             {/* Top 4 KPI Cards */}
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="p-4 rounded-xl glass-card border border-slate-800/80">
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">Sof Tushum (Revenue)</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">{t("net_revenue_lbl")}</span>
                 <p className="text-2xl font-bold text-white mt-2">${statement.netRevenue.toLocaleString()}</p>
-                <p className="text-xs text-slate-500 mt-1">Oxirgi 30 kunlik davr</p>
+                <p className="text-xs text-slate-500 mt-1">{t("last_30_days")}</p>
               </div>
 
               <div className="p-4 rounded-xl glass-card border border-slate-800/80">
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">Yalpi Foyda (Gross Profit)</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">{t("gross_profit_lbl")}</span>
                 <p className="text-2xl font-bold text-emerald-400 mt-2">${statement.grossProfit.toLocaleString()}</p>
-                <p className="text-xs text-emerald-500/80 mt-1">Marja: {statement.grossMarginPercent.toFixed(1)}%</p>
+                <p className="text-xs text-emerald-500/80 mt-1">{t("margin_label")}: {statement.grossMarginPercent.toFixed(1)}%</p>
               </div>
 
               <div className="p-4 rounded-xl glass-card border border-slate-800/80">
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">Operatsion Xarajat (OPEX)</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">{t("monthly_opex")}</span>
                 <p className="text-2xl font-bold text-rose-400 mt-2">${statement.totalOpex.toLocaleString()}</p>
-                <p className="text-xs text-slate-500 mt-1">Ijara, maosh va boshqa xarajatlar</p>
+                <p className="text-xs text-slate-500 mt-1">{t("opex_breakdown_lbl")}</p>
               </div>
 
               <div className="p-4 rounded-xl glass-card border border-slate-800/80">
-                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">Yakuniy Sof Foyda (Net Income)</span>
+                <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">{t("net_profit_lbl")}</span>
                 <p className={`text-2xl font-bold mt-2 ${statement.netIncome >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                   {statement.netIncome >= 0 ? "+" : ""}${statement.netIncome.toLocaleString()}
                 </p>
-                <p className="text-xs text-slate-500 mt-1">Sof Marja: {statement.netMarginPercent.toFixed(1)}%</p>
+                <p className="text-xs text-slate-500 mt-1">{t("net_margin_lbl")}: {statement.netMarginPercent.toFixed(1)}%</p>
               </div>
             </div>
 
@@ -131,7 +131,7 @@ export default function ReportsPage() {
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-indigo-400" />
-                    Foyda va Zararlar To'g'risida Hisobot (P&L)
+                    {t("income_statement_title")}
                   </h3>
                   <span className="text-xs text-slate-400 font-mono">
                     {new Date(statement.startDateUtc).toLocaleDateString()} — {new Date(statement.endDateUtc).toLocaleDateString()}
@@ -140,30 +140,30 @@ export default function ReportsPage() {
 
                 <div className="space-y-2 text-xs divide-y divide-slate-800/60">
                   <div className="flex justify-between py-2 font-semibold text-slate-300">
-                    <span>Yalpi Sotuv Tushumi (Gross Revenue)</span>
+                    <span>{t("gross_revenue_lbl")}</span>
                     <span className="font-mono text-white font-bold">${statement.grossRevenue.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between py-2 text-slate-400 pl-4">
-                    <span>Chegirmalar (Discounts)</span>
+                    <span>{t("discounts_lbl")}</span>
                     <span className="font-mono text-slate-400">-${statement.returnsAndDiscounts.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between py-2.5 font-bold text-white bg-slate-900/60 px-3 rounded-lg">
-                    <span>Sof Savdo Tushumi (Net Revenue)</span>
+                    <span>{t("net_revenue_lbl")}</span>
                     <span className="font-mono text-indigo-300">${statement.netRevenue.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between py-2 text-rose-400 pl-4">
-                    <span>Tovarlar Tannarxi (COGS)</span>
+                    <span>{t("cogs_lbl")}</span>
                     <span className="font-mono">-${statement.costOfGoodsSold.toLocaleString()}</span>
                   </div>
                   <div className="flex justify-between py-2.5 font-bold text-emerald-400 bg-emerald-950/20 px-3 rounded-lg">
-                    <span>Yalpi Foyda (Gross Profit - {statement.grossMarginPercent.toFixed(1)}%)</span>
+                    <span>{t("gross_profit_lbl")} ({statement.grossMarginPercent.toFixed(1)}%)</span>
                     <span className="font-mono">${statement.grossProfit.toLocaleString()}</span>
                   </div>
 
                   {/* OPEX Category Breakdown */}
                   <div className="pt-2 space-y-1.5 pl-4">
                     <span className="text-[11px] font-bold text-slate-400 uppercase tracking-wider block">
-                      Operatsion Xarajatlar (OPEX) Tarkibi:
+                      {t("opex_breakdown_lbl")}:
                     </span>
                     {Object.entries(statement.opexByCategory || {}).map(([cat, amt]) => (
                       <div key={cat} className="flex justify-between text-slate-400 text-[11px]">
@@ -174,13 +174,13 @@ export default function ReportsPage() {
                   </div>
 
                   <div className="flex justify-between py-2 text-amber-400 font-semibold pl-4">
-                    <span>Jami Operatsion Xarajatlar</span>
+                    <span>{t("total_opex_lbl")}</span>
                     <span className="font-mono">-${statement.totalOpex.toLocaleString()}</span>
                   </div>
 
                   <div className="flex justify-between py-3 font-extrabold text-white text-sm bg-gradient-to-r from-indigo-950/40 via-slate-900 to-slate-900 px-3 rounded-xl border border-indigo-500/30">
                     <span className={statement.netIncome >= 0 ? "text-emerald-400" : "text-rose-400"}>
-                      Yakuniy Sof Foyda (Net Income)
+                      {t("net_profit_lbl")}
                     </span>
                     <span className={`font-mono text-base ${statement.netIncome >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                       {statement.netIncome >= 0 ? "+" : ""}${statement.netIncome.toLocaleString()}
@@ -195,27 +195,27 @@ export default function ReportsPage() {
                   <div>
                     <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                       <DollarSign className="w-4 h-4 text-emerald-400" />
-                      Pul Oqimi & Likvidlik (Cash Flow)
+                      {t("cash_flow_title")}
                     </h3>
                     <p className="text-xs text-slate-400 mt-1">
-                      Haqiqiy kirim va chiqim oqimlari hamda zaxira muddati
+                      {t("cash_flow_subtitle")}
                     </p>
 
                     <div className="mt-6 space-y-3">
                       <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
                         <div className="flex justify-between items-center text-xs">
                           <span className="text-emerald-400 font-semibold flex items-center gap-1.5">
-                            <ArrowDownLeft className="w-4 h-4" /> Jami Kirimlar:
+                            <ArrowDownLeft className="w-4 h-4" /> {t("total_inflows")}:
                           </span>
                           <span className="font-bold text-white text-sm">+${cashFlow.totalInflows.toLocaleString()}</span>
                         </div>
                         <div className="mt-2 space-y-1 text-[11px] text-slate-400 pl-5">
                           <div className="flex justify-between">
-                            <span>Sotuv tushumlari:</span>
+                            <span>{t("operating_inflows")}:</span>
                             <span className="font-mono text-slate-300">${cashFlow.operatingInflows.toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Nasiya undirish:</span>
+                            <span>{t("debt_collections")}:</span>
                             <span className="font-mono text-slate-300">${cashFlow.debtCollections.toLocaleString()}</span>
                           </div>
                         </div>
@@ -224,17 +224,17 @@ export default function ReportsPage() {
                       <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800">
                         <div className="flex justify-between items-center text-xs">
                           <span className="text-rose-400 font-semibold flex items-center gap-1.5">
-                            <ArrowUpRight className="w-4 h-4" /> Jami Chiqimlar:
+                            <ArrowUpRight className="w-4 h-4" /> {t("total_outflows")}:
                           </span>
                           <span className="font-bold text-rose-400 text-sm">-${cashFlow.totalOutflows.toLocaleString()}</span>
                         </div>
                         <div className="mt-2 space-y-1 text-[11px] text-slate-400 pl-5">
                           <div className="flex justify-between">
-                            <span>Operatsion xarajatlar:</span>
+                            <span>{t("operating_outflows")}:</span>
                             <span className="font-mono text-slate-300">${cashFlow.operatingOutflows.toLocaleString()}</span>
                           </div>
                           <div className="flex justify-between">
-                            <span>Ta'minot xaridlari:</span>
+                            <span>{t("supplier_payments")}:</span>
                             <span className="font-mono text-slate-300">${cashFlow.supplierPayments.toLocaleString()}</span>
                           </div>
                         </div>
@@ -242,7 +242,7 @@ export default function ReportsPage() {
 
                       <div className="p-4 rounded-xl bg-gradient-to-r from-slate-900 to-indigo-950/40 border border-indigo-500/30">
                         <div className="flex justify-between items-center">
-                          <span className="text-xs font-bold text-white">Sof Pul Oqimi:</span>
+                          <span className="text-xs font-bold text-white">{t("net_cash_flow")}:</span>
                           <span className={`text-base font-bold font-mono ${cashFlow.netCashFlow >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
                             {cashFlow.netCashFlow >= 0 ? "+" : ""}${cashFlow.netCashFlow.toLocaleString()}
                           </span>
@@ -256,13 +256,13 @@ export default function ReportsPage() {
                     <div className="pt-4 border-t border-slate-800 space-y-2 text-xs">
                       <div className="flex justify-between text-slate-300">
                         <span className="flex items-center gap-1.5">
-                          <Boxes className="w-3.5 h-3.5 text-indigo-400" /> Ombor Tannarxi:
+                          <Boxes className="w-3.5 h-3.5 text-indigo-400" /> {t("inventory_valuation_lbl")}:
                         </span>
                         <span className="font-bold text-white">${valuation.totalInventoryCostValue.toLocaleString()}</span>
                       </div>
                       <div className="flex justify-between text-slate-300">
                         <span className="flex items-center gap-1.5">
-                          <Hourglass className="w-3.5 h-3.5 text-amber-400" /> Mijoz Nasiyalari:
+                          <Hourglass className="w-3.5 h-3.5 text-amber-400" /> {t("customer_debts_lbl")}:
                         </span>
                         <span className="font-bold text-emerald-400">${debtSummary.totalCustomerDebt.toLocaleString()}</span>
                       </div>

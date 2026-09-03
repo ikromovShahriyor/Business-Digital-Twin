@@ -133,8 +133,8 @@ export default function SalesPage() {
   };
 
   const totalRevenue = sales.reduce((sum, s) => sum + s.totalAmount, 0);
-  const totalCost = sales.reduce((sum, s) => sum + s.totalCostAmount, 0);
-  const totalProfit = sales.reduce((sum, s) => sum + s.netProfitAmount, 0);
+  const totalCost = sales.reduce((sum, s) => sum + (s.totalCostAmount || 0), 0);
+  const totalProfit = sales.reduce((sum, s) => sum + (s.netProfitAmount || 0), 0);
 
   return (
     <MainLayout>
@@ -147,7 +147,7 @@ export default function SalesPage() {
               Sotuvlar & Buyurtmalar Jurnali
             </h1>
             <p className="text-sm text-slate-400 mt-1">
-              Savdo shartnomalari, to'lovlar, avtomatik ombor chiqimi va mijoz nasiyasi nazorati
+              {t("sales")}
             </p>
           </div>
           <button
@@ -161,7 +161,7 @@ export default function SalesPage() {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
           >
             <Plus className="w-4 h-4" />
-            <span>Yangi Sotuv Hujjati</span>
+            <span>{t("new_sale_btn")}</span>
           </button>
         </div>
 
@@ -169,29 +169,29 @@ export default function SalesPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Jami Savdo Tushumi</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("total_revenue_stat")}</span>
               <DollarSign className="w-5 h-5 text-indigo-400" />
             </div>
             <p className="text-2xl font-bold text-white mt-2">${totalRevenue.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">{sales.length} ta sotuv hujjati</p>
+            <p className="text-xs text-slate-500 mt-1">{sales.length} {t("invoice_no")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Tovarlar Tannarxi (COGS)</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("total_cogs_stat")}</span>
               <CreditCard className="w-5 h-5 text-rose-400" />
             </div>
             <p className="text-2xl font-bold text-rose-400 mt-2">${totalCost.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">Sotilgan tovarlar qiymati</p>
+            <p className="text-xs text-slate-500 mt-1">{t("sold_goods_value")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Yalpi Foyda (Gross Profit)</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("total_gross_profit_stat")}</span>
               <TrendingUp className="w-5 h-5 text-emerald-400" />
             </div>
             <p className="text-2xl font-bold text-emerald-400 mt-2">+${totalProfit.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">Marja: {totalRevenue > 0 ? ((totalProfit / totalRevenue) * 100).toFixed(1) : 0}%</p>
+            <p className="text-xs text-slate-500 mt-1">{t("margin_label")}: {totalRevenue > 0 ? ((totalProfit / totalRevenue) * 100).toFixed(1) : 0}%</p>
           </div>
         </div>
 
@@ -203,7 +203,7 @@ export default function SalesPage() {
         ) : sales.length === 0 ? (
           <div className="py-16 text-center rounded-2xl glass-card border border-slate-800 text-slate-400">
             <Receipt className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-            <p className="font-medium">Hozircha sotuv yozuvlari mavjud emas</p>
+            <p className="font-medium">{t("empty_sales")}</p>
           </div>
         ) : (
           <div className="rounded-xl glass-card border border-slate-800/80 overflow-hidden">
@@ -211,15 +211,15 @@ export default function SalesPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Faktura #</th>
-                    <th className="py-3 px-4">Filial</th>
-                    <th className="py-3 px-4">Mijoz</th>
-                    <th className="py-3 px-4">Mas'ul Xodim</th>
-                    <th className="py-3 px-4">Mahsulotlar</th>
-                    <th className="py-3 px-4 text-right">Summa</th>
-                    <th className="py-3 px-4 text-right">To'langan</th>
-                    <th className="py-3 px-4 text-right">Foyda</th>
-                    <th className="py-3 px-4">Holat</th>
+                    <th className="py-3 px-4">{t("invoice_no")}</th>
+                    <th className="py-3 px-4">{t("branch")}</th>
+                    <th className="py-3 px-4">{t("customer")}</th>
+                    <th className="py-3 px-4">{t("responsible_employee")}</th>
+                    <th className="py-3 px-4">{t("product_items")}</th>
+                    <th className="py-3 px-4 text-right">{t("sum_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("paid_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("profit_amount")}</th>
+                    <th className="py-3 px-4">{t("status_col")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -232,7 +232,7 @@ export default function SalesPage() {
                         </span>
                       </td>
                       <td className="py-3.5 px-4 font-medium text-slate-300">{s.branchName}</td>
-                      <td className="py-3.5 px-4 font-semibold text-white">{s.customerName || "Chakana mehmon"}</td>
+                      <td className="py-3.5 px-4 font-semibold text-white">{s.customerName || t("guest_retail")}</td>
                       <td className="py-3.5 px-4 text-slate-400">{s.employeeName || "—"}</td>
                       <td className="py-3.5 px-4">
                         <div className="space-y-0.5">
@@ -245,14 +245,14 @@ export default function SalesPage() {
                       </td>
                       <td className="py-3.5 px-4 text-right font-bold text-white">${s.totalAmount.toLocaleString()}</td>
                       <td className="py-3.5 px-4 text-right font-semibold text-emerald-400">${s.paidAmount.toLocaleString()}</td>
-                      <td className="py-3.5 px-4 text-right font-bold text-emerald-400">+${s.netProfitAmount.toLocaleString()}</td>
+                      <td className="py-3.5 px-4 text-right font-bold text-emerald-400">+${(s.netProfitAmount || Math.max(0, s.totalAmount - (s.totalCostAmount || 0))).toLocaleString()}</td>
                       <td className="py-3.5 px-4">
                         <span className={`inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase ${
-                          s.remainingAmount > 0
+                          (s.remainingAmount || (s.totalAmount - s.paidAmount) || 0) > 0
                             ? "bg-amber-500/20 text-amber-300 border border-amber-500/30"
                             : "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30"
                         }`}>
-                          {s.remainingAmount > 0 ? "Nasiyaga (Qarz)" : "To'langan"}
+                          {(s.remainingAmount || (s.totalAmount - s.paidAmount) || 0) > 0 ? t("on_credit_debt") : t("fully_paid")}
                         </span>
                       </td>
                     </tr>

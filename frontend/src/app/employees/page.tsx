@@ -51,15 +51,15 @@ export default function EmployeesPage() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl font-bold text-slate-100">{t("employees")}</h1>
-            <p className="text-xs text-slate-400">Workforce roster, departmental assignments, salary structure & headcount management</p>
+            <h1 className="text-xl font-bold text-slate-100">{t("employees_title")}</h1>
+            <p className="text-xs text-slate-400">{t("employees_subtitle")}</p>
           </div>
           <button
             onClick={() => setShowModal(true)}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20"
           >
             <Plus className="w-4 h-4" />
-            <span>Add Employee</span>
+            <span>{t("new_employee_btn")}</span>
           </button>
         </div>
 
@@ -70,12 +70,12 @@ export default function EmployeesPage() {
               <UserCheck className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-semibold">Total Monthly Payroll</span>
+              <span className="text-[10px] text-slate-400 uppercase font-semibold">{t("payroll")}</span>
               <p className="text-xl font-black text-slate-100">${totalPayroll.toLocaleString()}</p>
             </div>
           </div>
           <span className="text-xs text-slate-400 font-medium">
-            {employees.length} active employees
+            {employees.length} {t("employees")}
           </span>
         </div>
 
@@ -87,7 +87,7 @@ export default function EmployeesPage() {
             </div>
           ) : employees.length === 0 ? (
             <div className="col-span-full py-12 text-center text-slate-500 text-xs">
-              No employees registered.
+              {t("empty_employees")}
             </div>
           ) : (
             employees.map((e) => (
@@ -104,17 +104,17 @@ export default function EmployeesPage() {
 
                 <div className="space-y-1.5 text-xs text-slate-400 pt-2 border-t border-slate-800/80">
                   <div className="flex justify-between">
-                    <span>Monthly Salary:</span>
+                    <span>{t("salary")}:</span>
                     <span className="font-bold text-slate-200">${e.monthlySalary.toLocaleString()}</span>
                   </div>
                   {e.branchName && (
                     <div className="flex justify-between">
-                      <span>Location:</span>
+                      <span>{t("branch")}:</span>
                       <span className="text-slate-300">{e.branchName}</span>
                     </div>
                   )}
                   <div className="flex justify-between text-[11px] text-slate-500 pt-1">
-                    <span>Hired:</span>
+                    <span>{t("hire_date")}:</span>
                     <span>{new Date(e.hireDateUtc).toLocaleDateString()}</span>
                   </div>
                 </div>
@@ -127,60 +127,56 @@ export default function EmployeesPage() {
         {showModal && (
           <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="glass-panel p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4">
-              <h3 className="text-base font-bold text-slate-100">Add New Employee</h3>
+              <h3 className="text-base font-bold text-slate-100">{t("create_employee_modal_title")}</h3>
               <form onSubmit={handleCreate} className="space-y-3 text-xs">
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">First Name</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("first_name")}</label>
                     <input
                       type="text"
                       required
                       value={formData.firstName}
                       onChange={(e) => setFormData({ ...formData, firstName: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl glass-input"
-                      placeholder="Sardor"
                     />
                   </div>
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Last Name</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("last_name")}</label>
                     <input
                       type="text"
                       required
                       value={formData.lastName}
                       onChange={(e) => setFormData({ ...formData, lastName: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl glass-input"
-                      placeholder="Yusupov"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Position</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("position")}</label>
                     <input
                       type="text"
                       required
                       value={formData.position}
                       onChange={(e) => setFormData({ ...formData, position: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl glass-input"
-                      placeholder="Store Lead"
                     />
                   </div>
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Department</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("department")}</label>
                     <input
                       type="text"
                       value={formData.department}
                       onChange={(e) => setFormData({ ...formData, department: e.target.value })}
                       className="w-full px-3 py-2 rounded-xl glass-input"
-                      placeholder="Sales"
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Monthly Salary ($)</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("salary")} ($)</label>
                     <input
                       type="number"
                       required
@@ -190,7 +186,7 @@ export default function EmployeesPage() {
                     />
                   </div>
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Branch</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("branch")}</label>
                     <select
                       value={formData.branchId}
                       onChange={(e) => setFormData({ ...formData, branchId: e.target.value })}
@@ -211,13 +207,13 @@ export default function EmployeesPage() {
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700"
                   >
-                    {t("cancel")}
+                    {t("cancel_btn")}
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-600/30"
                   >
-                    Save Employee
+                    {t("save")}
                   </button>
                 </div>
               </form>

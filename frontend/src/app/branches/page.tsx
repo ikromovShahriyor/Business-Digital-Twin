@@ -63,15 +63,15 @@ export default function BranchesPage() {
       <div className="space-y-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-xl font-bold text-slate-100">{t("branches")}</h1>
-            <p className="text-xs text-slate-400">Manage multi-location branch infrastructure and rent expenses</p>
+            <h1 className="text-xl font-bold text-slate-100">{t("branches_title")}</h1>
+            <p className="text-xs text-slate-400">{t("branches_subtitle")}</p>
           </div>
           <button
             onClick={() => setShowModal(true)}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20"
           >
             <Plus className="w-4 h-4" />
-            <span>{t("add_new")}</span>
+            <span>{t("new_branch_btn")}</span>
           </button>
         </div>
 
@@ -114,12 +114,12 @@ export default function BranchesPage() {
                     </div>
                   )}
                   <div className="flex items-center justify-between pt-1">
-                    <span>Rent / Mo:</span>
+                    <span>{t("monthly_rent")}:</span>
                     <span className="font-bold text-slate-200">${b.monthlyRent.toLocaleString()}</span>
                   </div>
                   <div className="flex items-center justify-between">
-                    <span>Staff Count:</span>
-                    <span className="font-bold text-slate-200">{b.employeeCount}</span>
+                    <span>{t("workforce")}:</span>
+                    <span className="font-bold text-slate-200">{b.employeeCount} {t("staff_label")}</span>
                   </div>
                 </div>
               </div>
@@ -131,22 +131,22 @@ export default function BranchesPage() {
         {showModal && (
           <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="glass-panel p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4">
-              <h3 className="text-base font-bold text-slate-100">Create New Branch</h3>
+              <h3 className="text-base font-bold text-slate-100">{t("create_branch_modal_title")}</h3>
               <form onSubmit={handleCreate} className="space-y-3 text-xs">
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">Branch Name</label>
+                  <label className="text-slate-300 font-semibold block mb-1">{t("branch_name")}</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl glass-input"
-                    placeholder="Chilanzar Tech Store"
+                    placeholder="Chilonzor Filiali"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Branch Code</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("branch_code")}</label>
                     <input
                       type="text"
                       required
@@ -157,7 +157,7 @@ export default function BranchesPage() {
                     />
                   </div>
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Monthly Rent ($)</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("monthly_rent")} ($)</label>
                     <input
                       type="number"
                       value={formData.monthlyRent}
@@ -167,13 +167,33 @@ export default function BranchesPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">Address</label>
+                  <label className="text-slate-300 font-semibold block mb-1">{t("branch_address")}</label>
                   <input
                     type="text"
                     value={formData.address}
                     onChange={(e) => setFormData({ ...formData, address: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl glass-input"
-                    placeholder="Amir Timur 12, Tashkent"
+                    placeholder="Amir Temur 12, Toshkent"
+                  />
+                </div>
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">{t("branch_phone")}</label>
+                  <input
+                    type="text"
+                    value={formData.phone}
+                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl glass-input"
+                    placeholder="+998 71 200 0000"
+                  />
+                </div>
+                <div>
+                  <label className="text-slate-300 font-semibold block mb-1">{t("branch_manager")}</label>
+                  <input
+                    type="text"
+                    value={formData.managerName}
+                    onChange={(e) => setFormData({ ...formData, managerName: e.target.value })}
+                    className="w-full px-3 py-2 rounded-xl glass-input"
+                    placeholder="Rustam Karimov"
                   />
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
@@ -182,7 +202,7 @@ export default function BranchesPage() {
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700"
                   >
-                    {t("cancel")}
+                    {t("cancel_btn")}
                   </button>
                   <button
                     type="submit"

@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { useI18n } from "@/lib/i18n";
 import { Payment, Branch } from "@/types";
 import { api } from "@/lib/api";
 import {
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 
 export default function PaymentsPage() {
+  const { t } = useI18n();
   const [payments, setPayments] = useState<Payment[]>([]);
   const [branches, setBranches] = useState<Branch[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -103,10 +105,10 @@ export default function PaymentsPage() {
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
               <Wallet className="w-7 h-7 text-indigo-400" />
-              To'lovlar Jurnali & Kassa Daftari
+              {t("payments")}
             </h1>
             <p className="text-sm text-slate-400 mt-1">
-              Barcha kirim va chiqim moliyaviy tranzaksiyalarining to'liq hisobi
+              {t("cash_flow")}
             </p>
           </div>
           <button
@@ -114,7 +116,7 @@ export default function PaymentsPage() {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
           >
             <Plus className="w-4 h-4" />
-            <span>Kassa Orderi Yaratish</span>
+            <span>{t("add_new")}</span>
           </button>
         </div>
 
@@ -122,31 +124,31 @@ export default function PaymentsPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Jami Kirimlar (Inflows)</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("node_inflow")}</span>
               <ArrowDownLeft className="w-5 h-5 text-emerald-400" />
             </div>
             <p className="text-2xl font-bold text-emerald-400 mt-2">+${inflows.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">Sotuvlar va qarz undiruvlari</p>
+            <p className="text-xs text-slate-500 mt-1">{t("sales")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Jami Chiqimlar (Outflows)</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("expenses")}</span>
               <ArrowUpRight className="w-5 h-5 text-rose-400" />
             </div>
             <p className="text-2xl font-bold text-rose-400 mt-2">-${outflows.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">Xarajatlar va xarid to'lovlari</p>
+            <p className="text-xs text-slate-500 mt-1">{t("monthly_opex")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Sof Pul Oqimi Balansi</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("node_net_margin")}</span>
               <DollarSign className="w-5 h-5 text-indigo-400" />
             </div>
             <p className={`text-2xl font-bold mt-2 ${netCash >= 0 ? "text-emerald-400" : "text-rose-400"}`}>
               {netCash >= 0 ? "+" : ""}${netCash.toLocaleString()}
             </p>
-            <p className="text-xs text-slate-500 mt-1">Haqiqiy kassa va hisob-raqam qoldig'i</p>
+            <p className="text-xs text-slate-500 mt-1">{t("cash_runway")}</p>
           </div>
         </div>
 
@@ -158,12 +160,12 @@ export default function PaymentsPage() {
             onChange={(e) => setTypeFilter(e.target.value)}
             className="px-3 py-2 rounded-lg bg-slate-900 border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-indigo-500"
           >
-            <option value="all">Barcha To'lovlar</option>
-            <option value="1">Kirim: Sotuvlar (Inflow Sale)</option>
-            <option value="2">Kirim: Nasiya Undirish (Inflow Debt Collection)</option>
-            <option value="3">Chiqim: Operatsion Xarajat (Outflow Expense)</option>
-            <option value="4">Chiqim: Ta'minot Xaridi (Outflow Purchase)</option>
-            <option value="5">Chiqim: Qarz To'lovi (Outflow Debt Payment)</option>
+            <option value="all">{t("filter_by_category")}</option>
+            <option value="1">{t("node_inflow")}: {t("sales")}</option>
+            <option value="2">{t("node_inflow")}: {t("receivable_type")}</option>
+            <option value="3">{t("expenses")}: {t("monthly_opex")}</option>
+            <option value="4">{t("expenses")}: {t("purchases")}</option>
+            <option value="5">{t("expenses")}: {t("payable_type")}</option>
           </select>
         </div>
 
@@ -175,7 +177,7 @@ export default function PaymentsPage() {
         ) : payments.length === 0 ? (
           <div className="py-16 text-center rounded-2xl glass-card border border-slate-800 text-slate-400">
             <Wallet className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-            <p className="font-medium">Hozircha to'lovlar mavjud emas</p>
+            <p className="font-medium">{t("empty_payments")}</p>
           </div>
         ) : (
           <div className="rounded-xl glass-card border border-slate-800/80 overflow-hidden">
@@ -183,13 +185,13 @@ export default function PaymentsPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Tranzaksiya #</th>
-                    <th className="py-3 px-4">Yo'nalish / Turi</th>
-                    <th className="py-3 px-4">Filial</th>
-                    <th className="py-3 px-4">Kontragent / Kimdan/Kimga</th>
-                    <th className="py-3 px-4">To'lov Usuli</th>
-                    <th className="py-3 px-4">Sana</th>
-                    <th className="py-3 px-4 text-right">Summa</th>
+                    <th className="py-3 px-4">{t("invoice_no")}</th>
+                    <th className="py-3 px-4">{t("category")}</th>
+                    <th className="py-3 px-4">{t("branch")}</th>
+                    <th className="py-3 px-4">{t("customer")} / {t("supplier")}</th>
+                    <th className="py-3 px-4">{t("payment_method_lbl")}</th>
+                    <th className="py-3 px-4">{t("date")}</th>
+                    <th className="py-3 px-4 text-right">{t("sum_amount")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -207,11 +209,11 @@ export default function PaymentsPage() {
                               : "bg-rose-500/20 text-rose-300 border border-rose-500/30"
                           }`}>
                             {isInflow ? <ArrowDownLeft className="w-3 h-3" /> : <ArrowUpRight className="w-3 h-3" />}
-                            {String(p.type).replace("Inflow", "Kirim: ").replace("Outflow", "Chiqim: ")}
+                            {isInflow ? t("node_inflow") : t("expenses")}
                           </span>
                         </td>
                         <td className="py-3.5 px-4 text-slate-400">
-                          {p.branchName || "Umumiy Bosh Ofis"}
+                          {p.branchName || "HQ-01"}
                         </td>
                         <td className="py-3.5 px-4 font-medium text-white">
                           {p.payerOrPayee || "—"}

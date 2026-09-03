@@ -2,6 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import { MainLayout } from "@/components/layout/MainLayout";
+import { useI18n } from "@/lib/i18n";
 import { Purchase, Supplier, Branch, Product } from "@/types";
 import { api } from "@/lib/api";
 import {
@@ -20,6 +21,7 @@ import {
 } from "lucide-react";
 
 export default function PurchasesPage() {
+  const { t } = useI18n();
   const [purchases, setPurchases] = useState<Purchase[]>([]);
   const [suppliers, setSuppliers] = useState<Supplier[]>([]);
   const [branches, setBranches] = useState<Branch[]>([]);
@@ -117,7 +119,7 @@ export default function PurchasesPage() {
 
   const totalSpent = purchases.reduce((sum, p) => sum + p.totalAmount, 0);
   const totalPaid = purchases.reduce((sum, p) => sum + p.paidAmount, 0);
-  const totalOutstanding = purchases.reduce((sum, p) => sum + p.outstandingAmount, 0);
+  const totalOutstanding = purchases.reduce((sum, p) => sum + (p.outstandingAmount ?? Math.max(0, p.totalAmount - p.paidAmount)), 0);
 
   return (
     <MainLayout>
@@ -143,7 +145,7 @@ export default function PurchasesPage() {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
           >
             <Plus className="w-4 h-4" />
-            <span>Yangi Xarid Hujjati</span>
+            <span>{t("new_purchase_btn")}</span>
           </button>
         </div>
 
@@ -151,29 +153,29 @@ export default function PurchasesPage() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Jami Xaridlar Summasi</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("total_purchases_stat")}</span>
               <DollarSign className="w-5 h-5 text-indigo-400" />
             </div>
             <p className="text-2xl font-bold text-white mt-2">${totalSpent.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">{purchases.length} ta xarid hujjati</p>
+            <p className="text-xs text-slate-500 mt-1">{purchases.length} {t("invoice_no")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">To'langan Summa</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("paid_amount")}</span>
               <CheckCircle2 className="w-5 h-5 text-emerald-400" />
             </div>
             <p className="text-2xl font-bold text-emerald-400 mt-2">${totalPaid.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">Avans va to'liq to'lovlar</p>
+            <p className="text-xs text-slate-500 mt-1">{t("fully_paid")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Qarz Qoldig'i (Qarzdorlik)</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("payable_type")}</span>
               <AlertCircle className="w-5 h-5 text-rose-400" />
             </div>
             <p className="text-2xl font-bold text-rose-400 mt-2">${totalOutstanding.toLocaleString()}</p>
-            <p className="text-xs text-slate-500 mt-1">Yetkazib beruvchilarga to'lanishi lozim</p>
+            <p className="text-xs text-slate-500 mt-1">{t("on_credit_debt")}</p>
           </div>
         </div>
 
@@ -185,7 +187,7 @@ export default function PurchasesPage() {
         ) : purchases.length === 0 ? (
           <div className="py-16 text-center rounded-2xl glass-card border border-slate-800 text-slate-400">
             <ShoppingCart className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-            <p className="font-medium">Hozircha ta'minot xaridlari mavjud emas</p>
+            <p className="font-medium">{t("empty_purchases")}</p>
           </div>
         ) : (
           <div className="rounded-xl glass-card border border-slate-800/80 overflow-hidden">
@@ -193,15 +195,15 @@ export default function PurchasesPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Hujjat #</th>
-                    <th className="py-3 px-4">Yetkazib Beruvchi</th>
-                    <th className="py-3 px-4">Qabul Qilgan Filial</th>
-                    <th className="py-3 px-4">Sana</th>
-                    <th className="py-3 px-4">Mahsulotlar</th>
-                    <th className="py-3 px-4 text-right">Jami Summa</th>
-                    <th className="py-3 px-4 text-right">To'langan</th>
-                    <th className="py-3 px-4 text-right">Qarz Qoldiq</th>
-                    <th className="py-3 px-4">Holat</th>
+                    <th className="py-3 px-4">{t("invoice_no")}</th>
+                    <th className="py-3 px-4">{t("supplier")}</th>
+                    <th className="py-3 px-4">{t("branch")}</th>
+                    <th className="py-3 px-4">{t("order_date")}</th>
+                    <th className="py-3 px-4">{t("product_items")}</th>
+                    <th className="py-3 px-4 text-right">{t("sum_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("paid_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("debt_title")}</th>
+                    <th className="py-3 px-4">{t("status_col")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -235,8 +237,8 @@ export default function PurchasesPage() {
                         ${p.paidAmount.toLocaleString()}
                       </td>
                       <td className="py-3.5 px-4 text-right font-semibold">
-                        <span className={p.outstandingAmount > 0 ? "text-rose-400" : "text-slate-500"}>
-                          ${p.outstandingAmount.toLocaleString()}
+                        <span className={(p.outstandingAmount || 0) > 0 ? "text-rose-400" : "text-slate-500"}>
+                          ${(p.outstandingAmount || (p.totalAmount - p.paidAmount) || 0).toLocaleString()}
                         </span>
                       </td>
                       <td className="py-3.5 px-4">

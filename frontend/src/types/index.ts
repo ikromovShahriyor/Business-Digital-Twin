@@ -69,9 +69,11 @@ export interface ProductPerformance {
 export interface MonthlyTrendPoint {
   monthLabel: string;
   revenue: number;
-  expenses: number;
+  expenses?: number;
+  cogs?: number;
+  opex?: number;
   netProfit: number;
-  orderCount: number;
+  orderCount?: number;
 }
 
 export interface DigitalTwinSnapshot {
@@ -87,16 +89,23 @@ export interface DigitalTwinSnapshot {
   netMarginPercent: number;
   cashRunwayMonths: number;
   breakevenMonthlyRevenue: number;
-  totalEmployees: number;
+  breakEvenRevenue?: number;
+  monthlyRent?: number;
   monthlyPayroll: number;
+  totalEmployees: number;
+  totalEmployeeCount?: number;
   revenuePerEmployee: number;
   totalBranches: number;
+  totalBranchCount?: number;
+  totalInventoryValue?: number;
+  totalReceivables?: number;
+  totalPayables?: number;
   activeCustomers: number;
   lowStockProductCount: number;
   branches: BranchFinancialSummary[];
   topProducts: ProductPerformance[];
   historicalTrends: MonthlyTrendPoint[];
-  calculatedAtUtc: string;
+  calculatedAtUtc?: string;
 }
 
 export interface TwinNode {
@@ -221,6 +230,7 @@ export interface AdvisorChatResponse {
 
 export interface Branch {
   id: string;
+  companyId?: string;
   name: string;
   code: string;
   address?: string;
@@ -229,17 +239,19 @@ export interface Branch {
   isMainBranch: boolean;
   monthlyRent: number;
   isActive: boolean;
-  employeeCount: number;
-  totalSales: number;
+  employeeCount?: number;
+  totalSales?: number;
+  createdAtUtc?: string;
 }
 
 export interface Employee {
   id: string;
+  companyId?: string;
   branchId?: string;
   branchName?: string;
   firstName: string;
   lastName: string;
-  fullName: string;
+  fullName?: string;
   position: string;
   department: string;
   phone?: string;
@@ -248,28 +260,34 @@ export interface Employee {
   hireDateUtc: string;
   isActive: boolean;
   totalSalesGenerated?: number;
+  createdAtUtc?: string;
 }
 
 export interface Customer {
   id: string;
+  companyId?: string;
   name: string;
   contactPerson?: string;
   email?: string;
   phone?: string;
   address?: string;
   taxNumber?: string;
-  segment: "New" | "Regular" | "VIP" | "AtRisk" | "Inactive";
-  totalSpent: number;
-  totalOrders: number;
-  outstandingDebt: number;
-  averageOrderValue: number;
+  segment: "New" | "Regular" | "VIP" | "AtRisk" | "Inactive" | string;
+  totalSpent?: number;
+  totalOrders?: number;
+  outstandingDebt?: number;
+  averageOrderValue?: number;
+  totalPurchasesAmount?: number;
+  currentDebtAmount?: number;
   firstPurchaseAtUtc?: string;
   lastPurchaseAtUtc?: string;
   isActive?: boolean;
+  createdAtUtc?: string;
 }
 
 export interface Supplier {
   id: string;
+  companyId?: string;
   name: string;
   contactPerson?: string;
   email?: string;
@@ -277,14 +295,18 @@ export interface Supplier {
   address?: string;
   taxNumber?: string;
   category: string;
-  totalPurchases: number;
-  outstandingDebt: number;
+  totalPurchases?: number;
+  outstandingDebt?: number;
   isActive: boolean;
   totalOrders?: number;
+  totalPurchasesAmount?: number;
+  currentDebtAmount?: number;
+  createdAtUtc?: string;
 }
 
 export interface Product {
   id: string;
+  companyId?: string;
   name: string;
   sku?: string;
   barcode?: string;
@@ -295,25 +317,34 @@ export interface Product {
   grossMarginAmount?: number;
   grossMarginPercent: number;
   minStockThreshold: number;
-  currentStock: number;
+  currentStock?: number;
+  totalStockOnHand?: number;
   description?: string;
   isActive: boolean;
+  createdAtUtc?: string;
 }
 
 export interface InventoryItem {
   id: string;
+  companyId?: string;
   branchId: string;
   branchName: string;
   productId: string;
   productName: string;
   productSku?: string;
+  productCategory?: string;
   category?: string;
+  unit?: string;
   unitCost?: number;
+  costPrice?: number;
   unitPrice?: number;
+  sellingPrice?: number;
   quantityOnHand: number;
-  reservedQuantity: number;
-  availableQuantity: number;
+  reservedQuantity?: number;
+  availableQuantity?: number;
   totalValuation?: number;
+  totalCostValue?: number;
+  totalRetailValue?: number;
   reorderPoint: number;
   isLowStock: boolean;
   lastRestockedAtUtc?: string;
@@ -337,20 +368,24 @@ export interface StockMovement {
 
 export interface SaleItem {
   id: string;
+  saleId?: string;
   productId: string;
   productName: string;
   sku?: string;
   quantity: number;
   unitPrice: number;
-  costPrice: number;
-  totalPrice: number;
-  grossMargin: number;
+  costPrice?: number;
+  totalPrice?: number;
+  totalAmount?: number;
+  grossMargin?: number;
 }
 
 export interface Sale {
   id: string;
-  branchId: string;
-  branchName: string;
+  companyId?: string;
+  branchId?: string;
+  branchName?: string;
+  branchCode?: string;
   customerId?: string;
   customerName?: string;
   employeeId?: string;
@@ -358,51 +393,60 @@ export interface Sale {
   saleNumber: string;
   saleDateUtc: string;
   subTotal: number;
-  taxAmount: number;
-  discountAmount: number;
+  taxAmount?: number;
+  discountAmount?: number;
   totalAmount: number;
-  totalCostAmount: number;
-  netProfitAmount: number;
+  totalCostAmount?: number;
+  netProfitAmount?: number;
   paidAmount: number;
-  remainingAmount: number;
-  channel: string;
-  status: string;
+  remainingAmount?: number;
+  debtRemainingAmount?: number;
+  channel: string | number;
+  status: string | number;
   paymentMethod: string;
   notes?: string;
   items: SaleItem[];
+  createdAtUtc?: string;
 }
 
 export interface PurchaseItem {
   id: string;
+  purchaseId?: string;
   productId: string;
   productName: string;
   sku?: string;
   quantity: number;
   unitCost: number;
-  totalPrice: number;
+  totalPrice?: number;
+  totalAmount?: number;
 }
 
 export interface Purchase {
   id: string;
+  companyId?: string;
   supplierId: string;
-  supplierName: string;
+  supplierName?: string;
   branchId: string;
-  branchName: string;
+  branchName?: string;
+  branchCode?: string;
   purchaseNumber: string;
   purchaseDateUtc: string;
-  subTotal: number;
-  taxAmount: number;
+  subTotal?: number;
+  taxAmount?: number;
   totalAmount: number;
   paidAmount: number;
-  outstandingAmount: number;
-  status: string;
+  outstandingAmount?: number;
+  debtRemainingAmount?: number;
+  status: string | number;
   paymentMethod: string;
   notes?: string;
   items: PurchaseItem[];
+  createdAtUtc?: string;
 }
 
 export interface DebtRecord {
   id: string;
+  companyId?: string;
   type: "CustomerDebt" | "SupplierDebt" | number;
   customerId?: string;
   customerName?: string;
@@ -415,9 +459,11 @@ export interface DebtRecord {
   paidAmount: number;
   remainingAmount: number;
   dueDateUtc?: string;
-  status: "Active" | "Paid" | "Overdue" | "Cancelled" | number;
+  status?: string | number;
+  isOverdue?: boolean;
+  daysUntilDue?: number;
   notes?: string;
-  createdAtUtc: string;
+  createdAtUtc?: string;
 }
 
 export interface DebtSummary {
@@ -430,8 +476,10 @@ export interface DebtSummary {
 
 export interface Payment {
   id: string;
+  companyId?: string;
   branchId?: string;
   branchName?: string;
+  branchCode?: string;
   saleId?: string;
   purchaseId?: string;
   debtRecordId?: string;
@@ -442,13 +490,16 @@ export interface Payment {
   paymentDateUtc: string;
   payerOrPayee?: string;
   notes?: string;
+  createdAtUtc?: string;
 }
 
 export interface Expense {
   id: string;
+  companyId?: string;
   branchId?: string;
   branchName?: string;
-  category: string;
+  branchCode?: string;
+  category: string | number;
   amount: number;
   expenseDateUtc: string;
   payee: string;
@@ -456,6 +507,7 @@ export interface Expense {
   paymentMethod: string;
   isRecurring: boolean;
   recurringFrequency?: string;
+  createdAtUtc?: string;
 }
 
 export interface StockValuation {

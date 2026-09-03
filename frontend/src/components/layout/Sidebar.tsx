@@ -36,7 +36,7 @@ export function Sidebar() {
 
   const navSections = [
     {
-      title: "Core Intelligence",
+      title: t("nav_section_core"),
       items: [
         { href: "/dashboard", label: t("overview"), icon: LayoutDashboard },
         { href: "/digital-twin", label: t("digital_twin"), icon: Cpu, badge: "Live" },
@@ -45,28 +45,28 @@ export function Sidebar() {
       ]
     },
     {
-      title: "Savdo & Ta'minot",
+      title: t("nav_section_sales"),
       items: [
         { href: "/products", label: t("products"), icon: Package },
         { href: "/inventory", label: t("inventory"), icon: Boxes },
         { href: "/sales", label: t("sales"), icon: Receipt },
-        { href: "/purchases", label: t("purchases") || "Xaridlar", icon: ShoppingCart },
-        { href: "/debts", label: t("debts") || "Nasiya & Qarzlar", icon: Hourglass },
-        { href: "/payments", label: t("payments") || "To'lovlar Jurnali", icon: Wallet },
+        { href: "/purchases", label: t("purchases"), icon: ShoppingCart },
+        { href: "/debts", label: t("debts"), icon: Hourglass },
+        { href: "/payments", label: t("payments"), icon: Wallet },
       ]
     },
     {
-      title: "Resurslar & Tashkilot",
+      title: t("nav_section_resources"),
       items: [
         { href: "/branches", label: t("branches"), icon: GitBranch },
         { href: "/employees", label: t("employees"), icon: UserCheck },
         { href: "/customers", label: t("customers"), icon: Users },
-        { href: "/suppliers", label: t("suppliers") || "Yetkazib beruvchilar", icon: Truck },
+        { href: "/suppliers", label: t("suppliers"), icon: Truck },
         { href: "/expenses", label: t("expenses"), icon: CreditCard },
       ]
     },
     {
-      title: "Analitika & Tizim",
+      title: t("nav_section_analytics"),
       items: [
         { href: "/reports", label: t("reports"), icon: FileBarChart2 },
         { href: "/audit", label: t("audit_logs"), icon: ShieldAlert },
@@ -97,7 +97,7 @@ export function Sidebar() {
         <div className="mx-3 mt-3 px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center gap-2 text-xs">
           <Building2 className="w-4 h-4 text-indigo-400 shrink-0" />
           <div className="truncate flex-1">
-            <span className="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">Workspace</span>
+            <span className="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">{t("workspace")}</span>
             <span className="font-semibold text-slate-200 text-xs truncate block">{currentCompany.name}</span>
           </div>
         </div>

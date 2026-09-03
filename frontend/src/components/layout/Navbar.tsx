@@ -177,7 +177,7 @@ export function Navbar() {
                   {t("notifications")}
                 </span>
                 <span className="text-[10px] text-indigo-400">
-                  {unreadCount} new
+                  {unreadCount} {t("new_badge")}
                 </span>
               </div>
               <div className="max-h-64 overflow-y-auto space-y-2">

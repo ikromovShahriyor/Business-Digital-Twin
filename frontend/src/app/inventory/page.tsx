@@ -89,10 +89,10 @@ export default function InventoryPage() {
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
               <Boxes className="w-7 h-7 text-indigo-400" />
-              Ombor & Tovarlar Qoldig'i (Inventory)
+              {t("inventory_title")}
             </h1>
             <p className="text-sm text-slate-400 mt-1">
-              Filiallar bo'yicha real vaqtli qoldiq, ombor bahosi va kirim-chiqim harakatlari
+              {t("inventory_subtitle")}
             </p>
           </div>
 
@@ -104,7 +104,7 @@ export default function InventoryPage() {
                 onChange={(e) => setSelectedBranch(e.target.value)}
                 className="bg-transparent text-slate-200 focus:outline-none"
               >
-                <option value="">Barcha Filiallar</option>
+                <option value="">{t("filter_by_branch")}</option>
                 {branches.map((b) => (
                   <option key={b.id} value={b.id}>{b.name}</option>
                 ))}
@@ -117,46 +117,46 @@ export default function InventoryPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Omborning Tannarx Bahosi</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("stock_valuation_card")}</span>
               <DollarSign className="w-5 h-5 text-indigo-400" />
             </div>
             <p className="text-2xl font-bold text-white mt-2">
               ${(valuation?.totalInventoryCostValue || totalCostValuation).toLocaleString()}
             </p>
-            <p className="text-xs text-slate-500 mt-1">Zaxiradagi kapital qiymati</p>
+            <p className="text-xs text-slate-500 mt-1">{t("cost_value")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Jami Birliklar Qoldig'i</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("stock_units_card")}</span>
               <Boxes className="w-5 h-5 text-emerald-400" />
             </div>
             <p className="text-2xl font-bold text-emerald-400 mt-2">
-              {(valuation?.totalUnitsInStock || totalUnits).toLocaleString()} dona
+              {(valuation?.totalUnitsInStock || totalUnits).toLocaleString()} {t("pcs")}
             </p>
-            <p className="text-xs text-slate-500 mt-1">Barcha filiallar zaxirasida</p>
+            <p className="text-xs text-slate-500 mt-1">{t("all")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Kam Qolgan Tovarlar</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("stock_low_card")}</span>
               <AlertTriangle className="w-5 h-5 text-amber-400" />
             </div>
             <p className="text-2xl font-bold text-amber-400 mt-2">
               {valuation?.lowStockProductCount || lowStockCount}
             </p>
-            <p className="text-xs text-slate-500 mt-1">Qayta buyurtma talab qilinadi</p>
+            <p className="text-xs text-slate-500 mt-1">{t("low_stock_alerts")}</p>
           </div>
 
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
-              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Filiallar Bo'linmasi</span>
+              <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("branches")}</span>
               <Building className="w-5 h-5 text-cyan-400" />
             </div>
             <p className="text-2xl font-bold text-cyan-400 mt-2">
-              {branches.length} ta filial
+              {branches.length}
             </p>
-            <p className="text-xs text-slate-500 mt-1">Zaxiralar taqsimlangan</p>
+            <p className="text-xs text-slate-500 mt-1">{t("branches_subtitle")}</p>
           </div>
         </div>
 
@@ -172,7 +172,7 @@ export default function InventoryPage() {
               }`}
             >
               <Boxes className="w-4 h-4" />
-              <span>Qoldiqlar & Filiallar Zaxirasi</span>
+              <span>{t("tab_stock")}</span>
             </button>
 
             <button
@@ -184,7 +184,7 @@ export default function InventoryPage() {
               }`}
             >
               <History className="w-4 h-4" />
-              <span>Harakatlar Tarixi (Stock Movements)</span>
+              <span>{t("tab_movements")}</span>
             </button>
           </div>
 
@@ -195,14 +195,14 @@ export default function InventoryPage() {
                 type="text"
                 value={search}
                 onChange={(e) => setSearch(e.target.value)}
-                placeholder="Mahsulot yoki SKU..."
+                placeholder={t("search_placeholder")}
                 className="w-full pl-9 pr-3 py-1.5 rounded-lg bg-slate-900 border border-slate-800 text-xs text-white placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
               />
             </div>
           )}
         </div>
 
-        {/* Content */}
+        {/* Table */}
         {loading ? (
           <div className="py-20 flex justify-center items-center">
             <Loader2 className="w-8 h-8 text-indigo-400 animate-spin" />
@@ -213,14 +213,14 @@ export default function InventoryPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Mahsulot</th>
-                    <th className="py-3 px-4">Filial</th>
-                    <th className="py-3 px-4 text-right">Mavjud Qoldiq</th>
-                    <th className="py-3 px-4 text-right">Tannarx</th>
-                    <th className="py-3 px-4 text-right">Jami Qiymat</th>
-                    <th className="py-3 px-4 text-right">Min Chegara</th>
-                    <th className="py-3 px-4 text-center">Holat</th>
-                    <th className="py-3 px-4 text-right">Korrektirovka</th>
+                    <th className="py-3 px-4">{t("product_items")}</th>
+                    <th className="py-3 px-4">{t("branch")}</th>
+                    <th className="py-3 px-4 text-right">{t("stock_quantity")}</th>
+                    <th className="py-3 px-4 text-right">{t("cost_price")}</th>
+                    <th className="py-3 px-4 text-right">{t("sum_amount")}</th>
+                    <th className="py-3 px-4 text-right">{t("min_stock_alert")}</th>
+                    <th className="py-3 px-4 text-center">{t("status_col")}</th>
+                    <th className="py-3 px-4 text-right">{t("actions")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -248,11 +248,11 @@ export default function InventoryPage() {
                       <td className="py-3.5 px-4 text-center">
                         {item.isLowStock ? (
                           <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase bg-rose-500/20 text-rose-300 border border-rose-500/30">
-                            <AlertTriangle className="w-3 h-3" /> Kam qoldi
+                            <AlertTriangle className="w-3 h-3" /> {t("low_stock_alerts")}
                           </span>
                         ) : (
                           <span className="inline-flex items-center gap-1 text-[10px] px-2 py-0.5 rounded-full font-bold uppercase bg-emerald-500/20 text-emerald-300 border border-emerald-500/30">
-                            Yetarli
+                            {t("active")}
                           </span>
                         )}
                       </td>
@@ -264,7 +264,7 @@ export default function InventoryPage() {
                           }}
                           className="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold transition-colors"
                         >
-                          O'zgartirish
+                          {t("edit")}
                         </button>
                       </td>
                     </tr>
@@ -279,14 +279,14 @@ export default function InventoryPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Sana & Vaqt</th>
-                    <th className="py-3 px-4">Harakat Turi</th>
-                    <th className="py-3 px-4">Filial</th>
-                    <th className="py-3 px-4">Mahsulot</th>
-                    <th className="py-3 px-4 text-right">O'zgarish Miqdori</th>
-                    <th className="py-3 px-4 text-right">Eski Qoldiq</th>
-                    <th className="py-3 px-4 text-right">Yangi Qoldiq</th>
-                    <th className="py-3 px-4">Hujjat / Sabab</th>
+                    <th className="py-3 px-4">{t("date")}</th>
+                    <th className="py-3 px-4">{t("movement_type")}</th>
+                    <th className="py-3 px-4">{t("branch")}</th>
+                    <th className="py-3 px-4">{t("product_items")}</th>
+                    <th className="py-3 px-4 text-right">{t("quantity_change")}</th>
+                    <th className="py-3 px-4 text-right">{t("reorder_point")}</th>
+                    <th className="py-3 px-4 text-right">{t("stock_quantity")}</th>
+                    <th className="py-3 px-4">{t("notes")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -339,7 +339,7 @@ export default function InventoryPage() {
           <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
             <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-6 shadow-2xl animate-fade-in">
               <h2 className="text-lg font-bold text-white mb-1">
-                Ombor Qoldig'ini Korrektirovka Qilish
+                {t("adjust_stock_modal_title")}
               </h2>
               <p className="text-xs text-slate-400 mb-4">
                 {adjustItem.productName} ({adjustItem.branchName})
@@ -347,34 +347,32 @@ export default function InventoryPage() {
 
               <form onSubmit={handleAdjustSubmit} className="space-y-4 text-sm">
                 <div className="p-3 bg-slate-900/80 rounded-xl border border-slate-800 flex justify-between text-xs">
-                  <span className="text-slate-400">Hozirgi Qoldiq:</span>
-                  <span className="font-bold text-white">{adjustItem.quantityOnHand} dona</span>
+                  <span className="text-slate-400">{t("stock_quantity")}:</span>
+                  <span className="font-bold text-white">{adjustItem.quantityOnHand} {t("pcs")}</span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">O'zgarish Miqdori (+ yoki -) *</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">{t("quantity_change")} *</label>
                   <input
                     type="number"
                     required
                     value={adjustQty}
                     onChange={(e) => setAdjustQty(Number(e.target.value))}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 font-bold"
-                    placeholder="Masalan: +20 yoki -5"
                   />
                   <span className="text-[10px] text-slate-500 block mt-1">
-                    Yangi qoldiq: {Math.max(0, adjustItem.quantityOnHand + Number(adjustQty))} dona bo'ladi.
+                    {t("stock_quantity")}: {Math.max(0, adjustItem.quantityOnHand + Number(adjustQty))} {t("pcs")}
                   </span>
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Sabab / Izoh *</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">{t("reason")} *</label>
                   <input
                     type="text"
                     required
                     value={adjustReason}
                     onChange={(e) => setAdjustReason(e.target.value)}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500"
-                    placeholder="Inventarizatsiya tekshiruvi, brak hisobdan chiqarish..."
                   />
                 </div>
 
@@ -384,13 +382,13 @@ export default function InventoryPage() {
                     onClick={() => setAdjustItem(null)}
                     className="px-4 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white"
                   >
-                    Bekor qilish
+                    {t("cancel_btn")}
                   </button>
                   <button
                     type="submit"
                     className="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30"
                   >
-                    Qoldiqni Saqlash
+                    {t("save")}
                   </button>
                 </div>
               </form>

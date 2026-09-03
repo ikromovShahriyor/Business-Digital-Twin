@@ -123,7 +123,7 @@ export default function LoginPage() {
           {/* Role-Based Quick Fill Helpers */}
           <div className="pt-3 border-t border-slate-800 space-y-2">
             <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 text-center">
-              Tezkor Rollar bilan Kirish (Demo):
+              {t("quick_demo_logins")}
             </p>
             <div className="grid grid-cols-2 gap-2">
               <button
@@ -136,7 +136,7 @@ export default function LoginPage() {
               >
                 <div className="flex items-center gap-1.5 text-indigo-300 font-bold text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>Super Admin (Owner)</span>
+                  <span>{t("role_owner")}</span>
                 </div>
                 <p className="text-[10px] text-slate-400 truncate mt-0.5">owner@business-twin.com</p>
               </button>
@@ -151,7 +151,7 @@ export default function LoginPage() {
               >
                 <div className="flex items-center gap-1.5 text-cyan-300 font-bold text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5 text-cyan-400" />
-                  <span>Bosh Direktor (Admin)</span>
+                  <span>{t("role_admin")}</span>
                 </div>
                 <p className="text-[10px] text-slate-400 truncate mt-0.5">director@business-twin.com</p>
               </button>
@@ -166,7 +166,7 @@ export default function LoginPage() {
               >
                 <div className="flex items-center gap-1.5 text-amber-300 font-bold text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5 text-amber-400" />
-                  <span>Filial Menejeri</span>
+                  <span>{t("role_manager")}</span>
                 </div>
                 <p className="text-[10px] text-slate-400 truncate mt-0.5">manager@business-twin.com</p>
               </button>
@@ -181,7 +181,7 @@ export default function LoginPage() {
               >
                 <div className="flex items-center gap-1.5 text-emerald-300 font-bold text-[11px]">
                   <ShieldCheck className="w-3.5 h-3.5 text-emerald-400" />
-                  <span>Bosh Tahlilchi (CFO)</span>
+                  <span>{t("role_analyst")}</span>
                 </div>
                 <p className="text-[10px] text-slate-400 truncate mt-0.5">analyst@business-twin.com</p>
               </button>

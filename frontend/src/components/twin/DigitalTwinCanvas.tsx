@@ -67,13 +67,13 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
               </h4>
             </div>
             <span className="text-[10px] text-indigo-400 bg-indigo-500/10 px-2 py-0.5 rounded-full font-bold border border-indigo-500/20">
-              Active Stream
+              {t("active_stream")}
             </span>
           </div>
 
           <p className="text-2xl font-black text-slate-100 mt-2">
             ${snapshot.monthlyRevenue.toLocaleString()}
-            <span className="text-xs font-medium text-slate-400 ml-1">/ mo</span>
+            <span className="text-xs font-medium text-slate-400 ml-1">/ {t("months_short")}</span>
           </p>
 
           <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-1.5 text-xs text-slate-400">
@@ -100,13 +100,13 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
               </h4>
             </div>
             <span className="text-[10px] text-cyan-400 bg-cyan-500/10 px-2 py-0.5 rounded-full font-bold border border-cyan-500/20">
-              {snapshot.grossMarginPercent.toFixed(1)}% Margin
+              {snapshot.grossMarginPercent.toFixed(1)}% {t("margin_badge")}
             </span>
           </div>
 
           <p className="text-2xl font-black text-slate-100 mt-2">
             ${snapshot.monthlyCogs.toLocaleString()}
-            <span className="text-xs font-medium text-slate-400 ml-1">/ mo</span>
+            <span className="text-xs font-medium text-slate-400 ml-1">/ {t("months_short")}</span>
           </p>
 
           <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-1.5 text-xs text-slate-400">
@@ -117,7 +117,7 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
             <div className="flex justify-between">
               <span>{t("low_stock_alerts")}:</span>
               <span className={`font-semibold ${snapshot.lowStockProductCount > 0 ? "text-amber-400" : "text-slate-200"}`}>
-                {snapshot.lowStockProductCount} items
+                {snapshot.lowStockProductCount} {t("items_label")}
               </span>
             </div>
           </div>
@@ -135,13 +135,13 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
               </h4>
             </div>
             <span className="text-[10px] text-rose-400 bg-rose-500/10 px-2 py-0.5 rounded-full font-bold border border-rose-500/20">
-              Fixed & Variable
+              {t("fixed_and_variable")}
             </span>
           </div>
 
           <p className="text-2xl font-black text-slate-100 mt-2">
             ${snapshot.monthlyOpex.toLocaleString()}
-            <span className="text-xs font-medium text-slate-400 ml-1">/ mo</span>
+            <span className="text-xs font-medium text-slate-400 ml-1">/ {t("months_short")}</span>
           </p>
 
           <div className="mt-4 pt-3 border-t border-slate-800/80 space-y-1.5 text-xs text-slate-400">
@@ -151,7 +151,7 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
             </div>
             <div className="flex justify-between">
               <span>{t("workforce")}:</span>
-              <span className="font-semibold text-slate-200">{snapshot.totalEmployees} employees</span>
+              <span className="font-semibold text-slate-200">{snapshot.totalEmployees} {t("staff_label")}</span>
             </div>
           </div>
         </div>
@@ -170,7 +170,7 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
             </span>
           </h3>
           <p className="text-xs text-slate-400 mt-1">
-            {t("breakeven_revenue")}: ${snapshot.breakevenMonthlyRevenue.toLocaleString()} | {t("cash_runway")}: {snapshot.cashRunwayMonths > 50 ? "Infinite (Profitable)" : `${snapshot.cashRunwayMonths} months`}
+            {t("breakeven_revenue")}: ${snapshot.breakevenMonthlyRevenue.toLocaleString()} | {t("cash_runway")}: {snapshot.cashRunwayMonths > 50 ? t("infinite_runway") : `${snapshot.cashRunwayMonths} ${t("months_short")}`}
           </p>
         </div>
 

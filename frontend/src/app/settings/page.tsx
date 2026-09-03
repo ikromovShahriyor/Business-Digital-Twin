@@ -22,7 +22,7 @@ export default function SettingsPage() {
       <div className="space-y-6 max-w-3xl">
         <div>
           <h1 className="text-xl font-bold text-slate-100">{t("settings_title")}</h1>
-          <p className="text-xs text-slate-400">Configure multi-currency, tax defaults, and legal entity parameters</p>
+          <p className="text-xs text-slate-400">{t("settings_subtitle")}</p>
         </div>
 
         <div className="glass-panel p-6 sm:p-8 rounded-2xl border-slate-800 space-y-6">
@@ -32,7 +32,7 @@ export default function SettingsPage() {
             </div>
             <div>
               <h2 className="text-sm font-bold text-slate-100">{t("company_profile")}</h2>
-              <p className="text-xs text-slate-400">Primary legal entity attributes</p>
+              <p className="text-xs text-slate-400">{t("company_profile_subtitle")}</p>
             </div>
           </div>
 
@@ -109,7 +109,7 @@ export default function SettingsPage() {
             <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
               {saved && (
                 <span className="text-xs font-bold text-emerald-400 animate-pulse">
-                  Settings updated successfully!
+                  {t("saved_success")}
                 </span>
               )}
               <button

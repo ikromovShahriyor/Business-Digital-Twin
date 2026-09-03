@@ -162,7 +162,7 @@ export function ScenarioStudio() {
           <div className="glass-panel p-5 rounded-2xl space-y-4">
             <h3 className="text-xs font-bold text-slate-200 uppercase tracking-wider flex items-center gap-2">
               <Zap className="w-4 h-4 text-amber-400" />
-              Scenario Control Parameters
+              {t("scenario_params_title")}
             </h3>
 
             {/* Scenario Name & Description */}
@@ -207,9 +207,9 @@ export function ScenarioStudio() {
                 className="w-full accent-indigo-500 cursor-pointer"
               />
               <div className="flex justify-between text-[10px] text-slate-500">
-                <span>-50% (Discount)</span>
+                <span>-50% ({t("discounts_lbl")})</span>
                 <span>0%</span>
-                <span>+100% (Premium)</span>
+                <span>+100% ({t("premium_lbl")})</span>
               </div>
             </div>
 
@@ -221,8 +221,8 @@ export function ScenarioStudio() {
                 </span>
                 <span className="font-bold text-cyan-400">
                   {(params.employeeHeadcountChange ?? 0) > 0
-                    ? `+${params.employeeHeadcountChange} Staff`
-                    : `${params.employeeHeadcountChange ?? 0} Staff`}
+                    ? `+${params.employeeHeadcountChange} ${t("staff_label")}`
+                    : `${params.employeeHeadcountChange ?? 0} ${t("staff_label")}`}
                 </span>
               </div>
               <input
@@ -284,7 +284,7 @@ export function ScenarioStudio() {
                   {t("new_branches_count")}
                 </span>
                 <span className="font-bold text-emerald-400">
-                  +{(params.newBranchesCount ?? 0)} Branches
+                  +{(params.newBranchesCount ?? 0)} {t("branches")}
                 </span>
               </div>
               <input
@@ -322,7 +322,7 @@ export function ScenarioStudio() {
                   </div>
                   <div>
                     <span className="text-[9px] text-slate-400 block truncate">
-                      OpEx ($/mo)
+                      OpEx ($/{t("month_short")})
                     </span>
                     <input
                       type="number"
@@ -339,7 +339,7 @@ export function ScenarioStudio() {
                   </div>
                   <div>
                     <span className="text-[9px] text-slate-400 block truncate">
-                      Sales ($/mo)
+                      Sales ($/{t("month_short")})
                     </span>
                     <input
                       type="number"
@@ -365,7 +365,7 @@ export function ScenarioStudio() {
                   {t("marketing_budget")}
                 </span>
                 <span className="font-bold text-purple-400">
-                  ${(params.marketingBudgetMonthly ?? 0).toLocaleString()}/mo
+                  ${(params.marketingBudgetMonthly ?? 0).toLocaleString()}/{t("month_short")}
                 </span>
               </div>
               <input
@@ -406,7 +406,7 @@ export function ScenarioStudio() {
                         {s.name}
                       </p>
                       <p className="text-[10px] text-slate-400">
-                        Profit: ${s.projectedMonthlyProfit.toLocaleString()} (
+                        {t("profit_label")}: ${s.projectedMonthlyProfit.toLocaleString()} (
                         {s.monthlyProfitDelta >= 0 ? "+" : ""}
                         ${s.monthlyProfitDelta.toLocaleString()})
                       </p>

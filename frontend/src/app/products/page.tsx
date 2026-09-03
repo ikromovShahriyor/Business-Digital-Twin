@@ -112,12 +112,12 @@ export default function ProductsPage() {
   };
 
   const handleDelete = async (id: string) => {
-    if (!confirm("Haqiqatan ham bu mahsulotni o'chirmoqchimisiz?")) return;
+    if (!confirm(t("confirm_delete"))) return;
     try {
       await api.deleteProduct(id);
       loadProducts();
     } catch (err: any) {
-      alert(err.message || "O'chirishda xatolik");
+      alert(err.message || "Error");
     }
   };
 
@@ -131,10 +131,10 @@ export default function ProductsPage() {
           <div>
             <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
               <Package className="w-7 h-7 text-indigo-400" />
-              Mahsulotlar Katalogi (Products)
+              {t("products_title")}
             </h1>
             <p className="text-sm text-slate-400 mt-1">
-              Barcha tovarlar, SKU, tannarx, sotish narxi, yalpi marja va ombor qoldig'i
+              {t("products_subtitle")}
             </p>
           </div>
           <button
@@ -144,7 +144,7 @@ export default function ProductsPage() {
                 name: "",
                 sku: "",
                 barcode: "",
-                category: "Kompyuterlar",
+                category: "General",
                 unit: "dona",
                 costPrice: 0,
                 sellingPrice: 0,
@@ -156,7 +156,7 @@ export default function ProductsPage() {
             className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
           >
             <Plus className="w-4 h-4" />
-            <span>Yangi Mahsulot</span>
+            <span>{t("new_product_btn")}</span>
           </button>
         </div>
 
@@ -166,7 +166,7 @@ export default function ProductsPage() {
             <Search className="w-4 h-4 text-slate-500 absolute left-3.5 top-3" />
             <input
               type="text"
-              placeholder="Mahsulot nomi, SKU yoki barkod bo'yicha qidiruv..."
+              placeholder={t("search_placeholder")}
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-10 pr-4 py-2.5 rounded-xl bg-slate-900/60 border border-slate-800 text-sm text-slate-200 placeholder:text-slate-500 focus:outline-none focus:border-indigo-500"
@@ -177,7 +177,7 @@ export default function ProductsPage() {
             onChange={(e) => setCategoryFilter(e.target.value)}
             className="px-4 py-2.5 rounded-xl bg-slate-900 border border-slate-800 text-xs text-slate-300 focus:outline-none focus:border-indigo-500"
           >
-            <option value="">Barcha Toifalar</option>
+            <option value="">{t("filter_by_category")}</option>
             {categories.map((c) => (
               <option key={c} value={c}>{c}</option>
             ))}
@@ -192,7 +192,7 @@ export default function ProductsPage() {
         ) : products.length === 0 ? (
           <div className="py-16 text-center rounded-2xl glass-card border border-slate-800 text-slate-400">
             <Package className="w-12 h-12 text-slate-600 mx-auto mb-3" />
-            <p className="font-medium">Mahsulotlar topilmadi</p>
+            <p className="font-medium">{t("empty_products")}</p>
           </div>
         ) : (
           <div className="rounded-xl glass-card border border-slate-800/80 overflow-hidden">
@@ -200,14 +200,14 @@ export default function ProductsPage() {
               <table className="w-full text-left text-xs text-slate-300">
                 <thead className="bg-slate-900/80 text-slate-400 uppercase font-semibold text-[10px] tracking-wider border-b border-slate-800">
                   <tr>
-                    <th className="py-3 px-4">Mahsulot Nomi</th>
-                    <th className="py-3 px-4">SKU / Barkod</th>
-                    <th className="py-3 px-4">Toifa</th>
-                    <th className="py-3 px-4 text-right">Tannarx (Cost)</th>
-                    <th className="py-3 px-4 text-right">Sotish Narxi</th>
-                    <th className="py-3 px-4 text-right">Yalpi Marja</th>
-                    <th className="py-3 px-4 text-right">Ombor Qoldig'i</th>
-                    <th className="py-3 px-4 text-right">Amallar</th>
+                    <th className="py-3 px-4">{t("name")}</th>
+                    <th className="py-3 px-4">{t("sku")}</th>
+                    <th className="py-3 px-4">{t("category")}</th>
+                    <th className="py-3 px-4 text-right">{t("cost_price")}</th>
+                    <th className="py-3 px-4 text-right">{t("selling_price")}</th>
+                    <th className="py-3 px-4 text-right">{t("margin_badge")}</th>
+                    <th className="py-3 px-4 text-right">{t("stock_quantity")}</th>
+                    <th className="py-3 px-4 text-right">{t("actions")}</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y divide-slate-800/60">
@@ -269,47 +269,44 @@ export default function ProductsPage() {
           <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
             <div className="w-full max-w-lg rounded-2xl glass-panel border border-slate-700/80 p-6 shadow-2xl animate-fade-in">
               <h2 className="text-lg font-bold text-white mb-4">
-                {editingProduct ? "Mahsulotni Tahrirlash" : "Yangi Mahsulot Qo'shish"}
+                {editingProduct ? t("edit_product_modal_title") : t("create_product_modal_title")}
               </h2>
               <form onSubmit={handleSubmit} className="space-y-4 text-sm">
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Mahsulot Nomi *</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">{t("name")} *</label>
                   <input
                     type="text"
                     required
                     value={formData.name}
                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500"
-                    placeholder="Masalan: Pro Noutbuk Ultra 16"
                   />
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">SKU Kodi</label>
+                    <label className="block text-xs font-medium text-slate-300 mb-1">{t("sku")}</label>
                     <input
                       type="text"
                       value={formData.sku}
                       onChange={(e) => setFormData({ ...formData, sku: e.target.value })}
                       className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500 font-mono"
-                      placeholder="SKU-LAP-01"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">Kategoriya</label>
+                    <label className="block text-xs font-medium text-slate-300 mb-1">{t("category")}</label>
                     <input
                       type="text"
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: e.target.value })}
                       className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500"
-                      placeholder="Kompyuterlar, Audio..."
                     />
                   </div>
                 </div>
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">Tannarx ($) *</label>
+                    <label className="block text-xs font-medium text-slate-300 mb-1">{t("cost_price")} ($) *</label>
                     <input
                       type="number"
                       step="0.01"
@@ -321,7 +318,7 @@ export default function ProductsPage() {
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">Sotish Narxi ($) *</label>
+                    <label className="block text-xs font-medium text-slate-300 mb-1">{t("selling_price")} ($) *</label>
                     <input
                       type="number"
                       step="0.01"
@@ -336,17 +333,16 @@ export default function ProductsPage() {
 
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">O'lchov Birligi</label>
+                    <label className="block text-xs font-medium text-slate-300 mb-1">{t("unit_measure")}</label>
                     <input
                       type="text"
                       value={formData.unit}
                       onChange={(e) => setFormData({ ...formData, unit: e.target.value })}
                       className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500"
-                      placeholder="dona, kg, metr"
                     />
                   </div>
                   <div>
-                    <label className="block text-xs font-medium text-slate-300 mb-1">Kam Qoldiq Chegarasi</label>
+                    <label className="block text-xs font-medium text-slate-300 mb-1">{t("min_stock_alert")}</label>
                     <input
                       type="number"
                       value={formData.minStockThreshold}
@@ -357,13 +353,12 @@ export default function ProductsPage() {
                 </div>
 
                 <div>
-                  <label className="block text-xs font-medium text-slate-300 mb-1">Tavsif / Xususiyatlari</label>
+                  <label className="block text-xs font-medium text-slate-300 mb-1">{t("description")}</label>
                   <input
                     type="text"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:outline-none focus:border-indigo-500"
-                    placeholder="Qisqacha xususiyatlari..."
                   />
                 </div>
 
@@ -373,13 +368,13 @@ export default function ProductsPage() {
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white"
                   >
-                    Bekor qilish
+                    {t("cancel_btn")}
                   </button>
                   <button
                     type="submit"
                     className="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30"
                   >
-                    {editingProduct ? "Saqlash" : "Qo'shish"}
+                    {t("save")}
                   </button>
                 </div>
               </form>

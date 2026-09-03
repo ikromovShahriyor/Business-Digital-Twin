@@ -14,6 +14,14 @@ import {
   Payment,
   Expense,
   SimulationResult,
+  SimulateScenarioParams,
+  ScenarioSummary,
+  MonthlyProjection,
+  IncomeStatement,
+  CashFlowEstimate,
+  StockValuation,
+  Notification,
+  AuditLog,
   AdvisorAnalysis
 } from "@/types";
 
@@ -356,11 +364,19 @@ export const DEMO_SNAPSHOT: DigitalTwinSnapshot = {
   monthlyPayroll: 14500,
   cashRunwayMonths: 18.5,
   breakEvenRevenue: 39900,
+  breakevenMonthlyRevenue: 39900,
   totalInventoryValue: 168400,
   totalBranchCount: 2,
+  totalBranches: 2,
   totalEmployeeCount: 12,
+  totalEmployees: 12,
+  revenuePerEmployee: 6541,
   totalReceivables: 5500,
   totalPayables: 6600,
+  activeCustomers: 4,
+  lowStockProductCount: 0,
+  branches: [],
+  topProducts: [],
   historicalTrends: [
     { monthLabel: "Mart 2026", revenue: 58000, cogs: 20800, opex: 20500, netProfit: 16700 },
     { monthLabel: "Apr 2026", revenue: 62500, cogs: 22400, opex: 21400, netProfit: 18700 },
@@ -380,12 +396,11 @@ export const DEMO_DEBTS: DebtRecord[] = [
 ];
 
 export const DEMO_DEBT_SUMMARY: DebtSummary = {
-  totalCustomerReceivables: 5500,
-  overdueCustomerReceivables: 0,
-  totalSupplierPayables: 6600,
-  overdueSupplierPayables: 0,
-  netDebtPosition: -1100,
-  totalActiveRecords: 5
+  totalCustomerDebt: 5500,
+  totalSupplierDebt: 6600,
+  activeCustomerDebtsCount: 3,
+  overdueCustomerDebtsCount: 0,
+  activeSupplierDebtsCount: 2
 };
 
 export const DEMO_PAYMENTS: Payment[] = [
@@ -462,3 +477,302 @@ export const DEMO_PURCHASES: Purchase[] = [
     createdAtUtc: new Date().toISOString()
   }
 ];
+
+export const DEMO_NODE_GRAPH: DigitalTwinNodeGraph = {
+  nodes: [
+    { id: "node-1", type: "revenue", label: "Savdo Tushumi", value: 78500, unit: "USD", status: "healthy" },
+    { id: "node-2", type: "cogs", label: "Mahsulot Tannarxi", value: 31200, unit: "USD", status: "healthy" },
+    { id: "node-3", type: "gross-profit", label: "Yalpi Foyda", value: 47300, unit: "USD", status: "healthy" },
+    { id: "node-4", type: "opex", label: "Operatsion Xarajat", value: 22600, unit: "USD", status: "healthy" },
+    { id: "node-5", type: "net-profit", label: "Sof Foyda", value: 24700, unit: "USD", status: "healthy" },
+    { id: "node-6", type: "inventory", label: "Ombor Qiymati", value: 48900, unit: "USD", status: "healthy" },
+    { id: "node-7", type: "receivables", label: "Mijoz Qarzlari", value: 14200, unit: "USD", status: "warning" },
+    { id: "node-8", type: "payables", label: "Yetkazib Beruvchi Qarzi", value: 8900, unit: "USD", status: "healthy" },
+  ],
+  edges: [
+    { source: "node-1", target: "node-2", label: "COGS chiqimi", flowValue: 31200 },
+    { source: "node-1", target: "node-3", label: "Yalpi marja", flowValue: 47300 },
+    { source: "node-3", target: "node-4", label: "OPEX qoplash", flowValue: 22600 },
+    { source: "node-3", target: "node-5", label: "Sof daromad", flowValue: 24700 },
+    { source: "node-6", target: "node-2", label: "Zaxiradan yetkazish", flowValue: 31200 },
+    { source: "node-7", target: "node-1", label: "Nasiya tushumi", flowValue: 14200 },
+    { source: "node-8", target: "node-6", label: "Kreditli ta'minot", flowValue: 8900 },
+  ],
+};
+
+export const DEMO_INCOME_STATEMENT: IncomeStatement = {
+  startDateUtc: new Date(Date.now() - 30 * 86400000).toISOString(),
+  endDateUtc: new Date().toISOString(),
+  grossRevenue: 78500,
+  returnsAndDiscounts: 1200,
+  netRevenue: 77300,
+  costOfGoodsSold: 31200,
+  grossProfit: 46100,
+  grossMarginPercent: 59.6,
+  totalOpex: 21400,
+  opexByCategory: {
+    "Ish haqi (Payroll)": 14200,
+    "Ijara va Kommunal": 4500,
+    "Marketing & Reklama": 1800,
+    "Boshqa xarajatlar": 900,
+  },
+  operatingIncome: 24700,
+  netIncome: 24700,
+  netMarginPercent: 31.9,
+};
+
+export const DEMO_CASH_FLOW: CashFlowEstimate = {
+  totalInflows: 83500,
+  totalOutflows: 58800,
+  netCashFlow: 24700,
+  operatingInflows: 71500,
+  debtCollections: 12000,
+  operatingOutflows: 21400,
+  supplierPayments: 37400,
+  cashRunwayMonths: 18.5,
+};
+
+export const DEMO_STOCK_VALUATION: StockValuation = {
+  totalInventoryCostValue: 48900,
+  totalInventoryRetailValue: 92400,
+  totalUnitsInStock: 845,
+  totalActiveProducts: 10,
+  lowStockProductCount: 2,
+  branchSummaries: [
+    {
+      branchId: DEMO_BRANCHES[0].id,
+      branchName: DEMO_BRANCHES[0].name,
+      totalUnits: 510,
+      totalCostValue: 31200,
+    },
+    {
+      branchId: DEMO_BRANCHES[1].id,
+      branchName: DEMO_BRANCHES[1].name,
+      totalUnits: 335,
+      totalCostValue: 17700,
+    },
+  ],
+};
+
+export const DEMO_AUDIT_LOGS: AuditLog[] = [
+  {
+    id: "log-1",
+    userEmail: "owner@business-twin.com",
+    action: "SIMULATE_SCENARIO",
+    entityName: "ScenarioEngine",
+    entityId: "sc-expansion-01",
+    newValuesJson: '{"priceChangePercent":10,"newBranchesCount":1}',
+    ipAddress: "192.168.1.10",
+    createdAtUtc: new Date(Date.now() - 15 * 60000).toISOString(),
+  },
+  {
+    id: "log-2",
+    userEmail: "manager@business-twin.com",
+    action: "CREATE_SALE",
+    entityName: "Sale",
+    entityId: "sale-1029",
+    newValuesJson: '{"saleNumber":"INV-2026-0042","amount":3200}',
+    ipAddress: "192.168.1.15",
+    createdAtUtc: new Date(Date.now() - 45 * 60000).toISOString(),
+  },
+  {
+    id: "log-3",
+    userEmail: "owner@business-twin.com",
+    action: "STOCK_ADJUSTMENT",
+    entityName: "Inventory",
+    entityId: "inv-macbook",
+    newValuesJson: '{"quantityChange":5,"reason":"Audit verification"}',
+    ipAddress: "192.168.1.10",
+    createdAtUtc: new Date(Date.now() - 120 * 60000).toISOString(),
+  },
+  {
+    id: "log-4",
+    userEmail: "analyst@business-twin.com",
+    action: "GENERATE_REPORT",
+    entityName: "IncomeStatement",
+    newValuesJson: '{"period":"last-30-days"}',
+    ipAddress: "192.168.1.22",
+    createdAtUtc: new Date(Date.now() - 240 * 60000).toISOString(),
+  },
+];
+
+export const DEMO_NOTIFICATIONS: Notification[] = [
+  {
+    id: "notif-1",
+    type: "INFO",
+    title: "Yangi savdo rekordi",
+    message: "Oylik sof tushum $78,500 ga yetdi va marja 31.9% ni tashkil qildi.",
+    linkUrl: "/reports",
+    isRead: false,
+    createdAtUtc: new Date(Date.now() - 30 * 60000).toISOString(),
+  },
+  {
+    id: "notif-2",
+    type: "WARNING",
+    title: "Kam qolgan tovar ogohlantirishi",
+    message: "Dell UltraSharp monitorlar zaxirasi minimal chegaraga yaqinlashdi (8 dona qoldi).",
+    linkUrl: "/inventory",
+    isRead: false,
+    createdAtUtc: new Date(Date.now() - 180 * 60000).toISOString(),
+  },
+];
+
+export const DEMO_SAVED_SCENARIOS: ScenarioSummary[] = [
+  {
+    id: "sc-1",
+    name: "Narxni 10% oshirish va 3-filial ochish",
+    description: "Yunusobod tumanida 3-filial ochish hamda flagman mahsulotlar narxini 10% ga optimallashtirish",
+    confidenceScore: 92,
+    projectedMonthlyRevenue: 98500,
+    projectedMonthlyProfit: 34200,
+    monthlyProfitDelta: 9500,
+    breakevenMonths: 4.2,
+    roiPercent: 148,
+    createdAtUtc: new Date(Date.now() - 86400000).toISOString(),
+    createdByUserName: "Shahriyor Ikromov",
+  },
+];
+
+export function calculateSimulationResult(params: SimulateScenarioParams): SimulationResult {
+  const baselineMonthlyRev = 78500;
+  const baselineMonthlyExp = 53800;
+  const baselineMonthlyProfit = baselineMonthlyRev - baselineMonthlyExp;
+
+  const pricePct = params.priceChangePercent || 0;
+  const elasticity = params.priceElasticity ?? -1.2;
+  const expectedVolChange = params.expectedSalesVolumeChangePercent ?? (pricePct * elasticity);
+  
+  const revenueFactor = (1 + pricePct / 100) * (1 + expectedVolChange / 100);
+  
+  const newBranches = params.newBranchesCount || 0;
+  const branchRev = newBranches * (params.expectedMonthlyRevenuePerNewBranch || 12000);
+  const branchOpex = newBranches * (params.monthlyOpexPerNewBranch || 3200);
+  const branchCapex = newBranches * (params.capexPerNewBranch || 35000);
+
+  const headcountChange = params.employeeHeadcountChange || 0;
+  const salaryCost = headcountChange * (params.averageNewEmployeeSalary || 1500);
+  const marketingCost = params.marketingBudgetMonthly || 0;
+  const marketingRev = marketingCost > 0 
+    ? ((marketingCost / (params.marketingCustomerAcquisitionCost || 50)) * (params.marketingRevenuePerAcquiredCustomer || 120))
+    : 0;
+
+  const simulatedMonthlyRev = Math.round((baselineMonthlyRev * revenueFactor) + branchRev + marketingRev);
+  const simulatedMonthlyExp = Math.round(baselineMonthlyExp + branchOpex + salaryCost + marketingCost);
+  const simulatedMonthlyProfit = simulatedMonthlyRev - simulatedMonthlyExp;
+
+  const profitDelta = simulatedMonthlyProfit - baselineMonthlyProfit;
+  const months = params.projectionMonths || 12;
+
+  const monthlyProjections: MonthlyProjection[] = [];
+  const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+  const currentMonthIdx = new Date().getMonth();
+
+  for (let i = 0; i < months; i++) {
+    const mIdx = (currentMonthIdx + i) % 12;
+    const rampUp = Math.min(1, 0.7 + (i * 0.05));
+    const mRev = Math.round(baselineMonthlyRev + (simulatedMonthlyRev - baselineMonthlyRev) * rampUp);
+    const mExp = Math.round(baselineMonthlyExp + (simulatedMonthlyExp - baselineMonthlyExp) * rampUp);
+    const mProf = mRev - mExp;
+
+    monthlyProjections.push({
+      monthIndex: i + 1,
+      monthLabel: `${monthNames[mIdx]} 2026`,
+      baselineRevenue: baselineMonthlyRev,
+      baselineExpenses: baselineMonthlyExp,
+      baselineProfit: baselineMonthlyProfit,
+      simulatedRevenue: mRev,
+      simulatedExpenses: mExp,
+      simulatedProfit: mProf,
+      p10Profit: Math.round(mProf * 0.82),
+      p50Profit: mProf,
+      p90Profit: Math.round(mProf * 1.18),
+    });
+  }
+
+  const initialInvestment = branchCapex + marketingCost;
+  const breakevenMonths = initialInvestment > 0 && profitDelta > 0 
+    ? Number((initialInvestment / profitDelta).toFixed(1)) 
+    : 1.0;
+  const totalSimProfit = monthlyProjections.reduce((acc, curr) => acc + curr.simulatedProfit, 0);
+  const roi = initialInvestment > 0 ? Number(((totalSimProfit / initialInvestment) * 100).toFixed(1)) : 165;
+
+  const result: SimulationResult = {
+    scenarioId: "sc-" + Math.random().toString(36).substring(2, 9),
+    scenarioName: params.scenarioName || "Optimallashtirish Ssenariysi",
+    isSimulated: true,
+    confidenceScore: 92,
+    confidenceRationale: "Tahlil qilingan 18 oylik tarixiy ma'lumotlar, elastiklik va xarajat koeffitsientlariga asoslangan yuqori aniqlikdagi hisob-kitob.",
+    assumptionsApplied: [
+      `Narx o'zgarishi: ${pricePct > 0 ? "+" : ""}${pricePct}%`,
+      `Talab elastikligi: ${elasticity}`,
+      `Yangi filiallar: +${newBranches} ta`,
+      `Kutilayotgan oylik marketing: $${marketingCost.toLocaleString()}`,
+    ],
+    riskFactors: [
+      pricePct > 15 ? "Narx keskin oshishi tufayli mijozlar oqimi sekinlashishi mumkin" : "Yangi filial uchun dastlabki 2 oyda kutilgandan pastroq tushum xavfi",
+      headcountChange > 3 ? "Yangi xodimlarni adaptatsiya qilish davrida operatsion unumdorlik pasayishi" : "Ta'minot zanjirida narx tebranishlari",
+    ],
+    opportunities: [
+      `Oylik sof foydaning $${Math.max(0, profitDelta).toLocaleString()} ga oshishi`,
+      "Mavjud mijozlar bazasida o'rtacha chek miqdorining 14% ga ko'tarilishi",
+      "Kompaniya kassa zaxirasining 24 oygacha kengayishi",
+    ],
+    summaryMetrics: {
+      monthlyRevenue: {
+        metricName: "Monthly Revenue",
+        baselineValue: baselineMonthlyRev,
+        simulatedValue: simulatedMonthlyRev,
+        absoluteChange: simulatedMonthlyRev - baselineMonthlyRev,
+        percentageChange: Number((((simulatedMonthlyRev - baselineMonthlyRev) / baselineMonthlyRev) * 100).toFixed(1)),
+        unit: "USD",
+      },
+      monthlyExpenses: {
+        metricName: "Monthly Expenses",
+        baselineValue: baselineMonthlyExp,
+        simulatedValue: simulatedMonthlyExp,
+        absoluteChange: simulatedMonthlyExp - baselineMonthlyExp,
+        percentageChange: Number((((simulatedMonthlyExp - baselineMonthlyExp) / baselineMonthlyExp) * 100).toFixed(1)),
+        unit: "USD",
+      },
+      monthlyProfit: {
+        metricName: "Monthly Profit",
+        baselineValue: baselineMonthlyProfit,
+        simulatedValue: simulatedMonthlyProfit,
+        absoluteChange: simulatedMonthlyProfit - baselineMonthlyProfit,
+        percentageChange: Number((((simulatedMonthlyProfit - baselineMonthlyProfit) / baselineMonthlyProfit) * 100).toFixed(1)),
+        unit: "USD",
+      },
+    },
+    monthlyProjections,
+    breakevenMonths,
+    roiPercent: roi,
+    calculatedAtUtc: new Date().toISOString(),
+  };
+
+  if (typeof window !== "undefined" && params.saveScenario) {
+    try {
+      const stored = localStorage.getItem("bt_saved_scenarios");
+      const list: ScenarioSummary[] = stored ? JSON.parse(stored) : [...DEMO_SAVED_SCENARIOS];
+      const summary: ScenarioSummary = {
+        id: result.scenarioId || "sc-saved",
+        name: params.scenarioName,
+        description: params.description,
+        confidenceScore: 92,
+        projectedMonthlyRevenue: simulatedMonthlyRev,
+        projectedMonthlyProfit: simulatedMonthlyProfit,
+        monthlyProfitDelta: profitDelta,
+        breakevenMonths,
+        roiPercent: roi,
+        createdAtUtc: new Date().toISOString(),
+        createdByUserName: "Super Admin",
+      };
+      list.unshift(summary);
+      localStorage.setItem("bt_saved_scenarios", JSON.stringify(list));
+      localStorage.setItem(`bt_scenario_${summary.id}`, JSON.stringify(result));
+    } catch {
+      // Ignore
+    }
+  }
+
+  return result;
+}

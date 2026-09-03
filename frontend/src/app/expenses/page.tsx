@@ -56,15 +56,15 @@ export default function ExpensesPage() {
       <div className="space-y-6">
         <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
           <div>
-            <h1 className="text-xl font-bold text-slate-100">{t("expenses")}</h1>
-            <p className="text-xs text-slate-400">Track operating expenditure (OPEX), rent, utilities, software and vendor payouts</p>
+            <h1 className="text-xl font-bold text-slate-100">{t("expenses_title")}</h1>
+            <p className="text-xs text-slate-400">{t("expenses_subtitle")}</p>
           </div>
           <button
             onClick={() => setShowModal(true)}
             className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20"
           >
             <Plus className="w-4 h-4" />
-            <span>Log Expense</span>
+            <span>{t("new_expense_btn")}</span>
           </button>
         </div>
 
@@ -75,12 +75,12 @@ export default function ExpensesPage() {
               <CreditCard className="w-5 h-5" />
             </div>
             <div>
-              <span className="text-[10px] text-slate-400 uppercase font-semibold">Total Logged OPEX</span>
+              <span className="text-[10px] text-slate-400 uppercase font-semibold">{t("monthly_opex")}</span>
               <p className="text-xl font-black text-slate-100">${totalOpex.toLocaleString()}</p>
             </div>
           </div>
           <span className="text-xs text-slate-400 font-medium">
-            {expenses.length} recorded entries
+            {expenses.length} {t("expenses")}
           </span>
         </div>
 
@@ -90,25 +90,25 @@ export default function ExpensesPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800 font-semibold uppercase text-[10px] tracking-wider">
                 <tr>
-                  <th className="py-3.5 px-4">Payee / Vendor</th>
-                  <th className="py-3.5 px-4">Category</th>
-                  <th className="py-3.5 px-4">Description</th>
-                  <th className="py-3.5 px-4">Date</th>
-                  <th className="py-3.5 px-4">Payment</th>
-                  <th className="py-3.5 px-4 text-right">Amount</th>
+                  <th className="py-3.5 px-4">{t("payee_vendor_lbl")}</th>
+                  <th className="py-3.5 px-4">{t("category")}</th>
+                  <th className="py-3.5 px-4">{t("notes")}</th>
+                  <th className="py-3.5 px-4">{t("date")}</th>
+                  <th className="py-3.5 px-4">{t("payment_method_lbl")}</th>
+                  <th className="py-3.5 px-4 text-right">{t("sum_amount")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 text-slate-300">
                 {loading ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-500">
-                      Loading expenses...
+                      Loading...
                     </td>
                   </tr>
                 ) : expenses.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-500">
-                      No expense records logged.
+                      {t("empty_expenses")}
                     </td>
                   </tr>
                 ) : (
@@ -138,40 +138,39 @@ export default function ExpensesPage() {
         {showModal && (
           <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
             <div className="glass-panel p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4">
-              <h3 className="text-base font-bold text-slate-100">Log Operating Expense</h3>
+              <h3 className="text-base font-bold text-slate-100">{t("log_expense_modal_title")}</h3>
               <form onSubmit={handleCreate} className="space-y-3 text-xs">
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">Payee / Vendor</label>
+                  <label className="text-slate-300 font-semibold block mb-1">{t("payee_vendor_lbl")}</label>
                   <input
                     type="text"
                     required
                     value={formData.payee}
                     onChange={(e) => setFormData({ ...formData, payee: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl glass-input"
-                    placeholder="City Power & Utilities"
                   />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Category</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("category")}</label>
                     <select
                       value={formData.category}
                       onChange={(e) => setFormData({ ...formData, category: parseInt(e.target.value) })}
                       className="w-full px-3 py-2 rounded-xl glass-input"
                     >
-                      <option value="1">Rent</option>
-                      <option value="2">Salaries</option>
+                      <option value="1">{t("monthly_rent")}</option>
+                      <option value="2">{t("payroll")}</option>
                       <option value="3">Marketing</option>
                       <option value="4">Utilities</option>
                       <option value="5">Software & SaaS</option>
-                      <option value="6">Inventory Supplies</option>
+                      <option value="6">Supplies</option>
                       <option value="7">Logistics</option>
                       <option value="8">Legal & Tax</option>
                       <option value="10">Other</option>
                     </select>
                   </div>
                   <div>
-                    <label className="text-slate-300 font-semibold block mb-1">Amount ($)</label>
+                    <label className="text-slate-300 font-semibold block mb-1">{t("amount")} ($)</label>
                     <input
                       type="number"
                       step="0.01"
@@ -183,13 +182,12 @@ export default function ExpensesPage() {
                   </div>
                 </div>
                 <div>
-                  <label className="text-slate-300 font-semibold block mb-1">Description</label>
+                  <label className="text-slate-300 font-semibold block mb-1">{t("description")}</label>
                   <input
                     type="text"
                     value={formData.description}
                     onChange={(e) => setFormData({ ...formData, description: e.target.value })}
                     className="w-full px-3 py-2 rounded-xl glass-input"
-                    placeholder="Monthly electricity invoice"
                   />
                 </div>
                 <div className="flex justify-end gap-2 pt-2">
@@ -198,13 +196,13 @@ export default function ExpensesPage() {
                     onClick={() => setShowModal(false)}
                     className="px-4 py-2 rounded-xl bg-slate-800 text-slate-300 hover:bg-slate-700"
                   >
-                    {t("cancel")}
+                    {t("cancel_btn")}
                   </button>
                   <button
                     type="submit"
                     className="px-4 py-2 rounded-xl bg-indigo-600 text-white font-bold hover:bg-indigo-500 shadow-lg shadow-indigo-600/30"
                   >
-                    Save Expense
+                    {t("save")}
                   </button>
                 </div>
               </form>

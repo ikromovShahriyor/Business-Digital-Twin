@@ -23,8 +23,8 @@ export default function AuditPage() {
     <DashboardLayout>
       <div className="space-y-6">
         <div>
-          <h1 className="text-xl font-bold text-slate-100">{t("audit_logs")}</h1>
-          <p className="text-xs text-slate-400">Immutable security audit trails, user mutations, simulation records and IP tracking</p>
+          <h1 className="text-xl font-bold text-slate-100">{t("audit_logs_title")}</h1>
+          <p className="text-xs text-slate-400">{t("audit_logs_subtitle")}</p>
         </div>
 
         <div className="glass-panel rounded-2xl border-slate-800 overflow-hidden">
@@ -32,25 +32,25 @@ export default function AuditPage() {
             <table className="w-full text-left text-xs">
               <thead className="bg-slate-900/80 text-slate-400 border-b border-slate-800 font-semibold uppercase text-[10px] tracking-wider">
                 <tr>
-                  <th className="py-3.5 px-4">Action</th>
-                  <th className="py-3.5 px-4">Entity</th>
-                  <th className="py-3.5 px-4">User</th>
-                  <th className="py-3.5 px-4">IP Address</th>
-                  <th className="py-3.5 px-4">Timestamp</th>
-                  <th className="py-3.5 px-4">Details</th>
+                  <th className="py-3.5 px-4">{t("actions")}</th>
+                  <th className="py-3.5 px-4">{t("entity_lbl")}</th>
+                  <th className="py-3.5 px-4">{t("user_lbl")}</th>
+                  <th className="py-3.5 px-4">{t("ip_address_lbl")}</th>
+                  <th className="py-3.5 px-4">{t("timestamp_lbl")}</th>
+                  <th className="py-3.5 px-4">{t("details_lbl")}</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-slate-800/60 text-slate-300">
                 {loading ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-500">
-                      Loading audit logs...
+                      Loading...
                     </td>
                   </tr>
                 ) : logs.length === 0 ? (
                   <tr>
                     <td colSpan={6} className="py-8 text-center text-slate-500">
-                      No security events logged yet.
+                      {t("empty_audit")}
                     </td>
                   </tr>
                 ) : (

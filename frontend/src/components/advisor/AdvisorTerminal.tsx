@@ -116,7 +116,7 @@ export function AdvisorTerminal() {
               <Sparkles className="w-4 h-4" />
             </span>
             <span className="text-xs font-bold text-cyan-400 uppercase tracking-widest">
-              AI Strategic Diagnostic
+              {t("ai_strategic_diagnostic")}
             </span>
           </div>
           <h2 className="text-xl font-bold text-slate-100 mt-1">
@@ -171,7 +171,7 @@ export function AdvisorTerminal() {
                       : "text-emerald-400"
                   }`}
                 >
-                  {d.severity}
+                  {d.severity === "CRITICAL" ? t("severity_critical") : d.severity === "WARNING" ? t("severity_warning") : t("severity_healthy")}
                 </span>
               </div>
               <h4 className="text-xs font-bold text-slate-100">{d.title}</h4>
@@ -192,7 +192,7 @@ export function AdvisorTerminal() {
           <div className="flex items-center gap-2">
             <Bot className="w-4 h-4 text-cyan-400" />
             <span className="text-xs font-bold text-slate-200">
-              Interactive Advisor Terminal
+              {t("interactive_advisor_terminal")}
             </span>
           </div>
           <div className="flex items-center gap-1.5 text-[10px] text-emerald-400 bg-emerald-500/10 px-2 py-0.5 rounded-full border border-emerald-500/20">
@@ -233,7 +233,7 @@ export function AdvisorTerminal() {
                   {m.isGrounded && (
                     <span className="text-emerald-400 flex items-center gap-1">
                       <CheckCircle2 className="w-2.5 h-2.5" />
-                      Grounded
+                      {t("grounded_badge")}
                     </span>
                   )}
                 </div>

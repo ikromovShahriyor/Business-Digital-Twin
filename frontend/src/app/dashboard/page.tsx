@@ -87,14 +87,14 @@ export default function DashboardPage() {
                 title={t("monthly_revenue")}
                 value={`$${snapshot.monthlyRevenue.toLocaleString()}`}
                 icon={DollarSign}
-                trend={{ value: 8.4, label: "vs last month" }}
+                trend={{ value: 8.4, label: t("vs_last_month") }}
                 variant="indigo"
               />
               <StatCard
                 title={t("net_profit")}
                 value={`$${snapshot.monthlyNetProfit.toLocaleString()}`}
                 icon={TrendingUp}
-                trend={{ value: 12.2, label: "vs last month" }}
+                trend={{ value: 12.2, label: t("vs_last_month") }}
                 variant="emerald"
               />
               <StatCard
@@ -122,7 +122,7 @@ export default function DashboardPage() {
                     {t("financial_trend")}
                   </h3>
                   <span className="text-[10px] text-slate-400 font-semibold px-2 py-0.5 rounded-full bg-slate-900 border border-slate-800">
-                    Trailing 6 Months
+                    {t("trailing_6_months")}
                   </span>
                 </div>
 
@@ -199,7 +199,7 @@ export default function DashboardPage() {
                   <div className="flex justify-between text-slate-300">
                     <span>{t("cash_runway")}:</span>
                     <span className="font-bold text-emerald-400">
-                      {snapshot.cashRunwayMonths > 50 ? "Infinite (Positive Cash Flow)" : `${snapshot.cashRunwayMonths} mo`}
+                      {snapshot.cashRunwayMonths > 50 ? t("infinite_runway") : `${snapshot.cashRunwayMonths} ${t("months_short")}`}
                     </span>
                   </div>
 
@@ -207,7 +207,7 @@ export default function DashboardPage() {
                     href="/simulator"
                     className="mt-3 w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/20 transition-all block text-center"
                   >
-                    <span>Launch Simulator</span>
+                    <span>{t("launch_simulator")}</span>
                     <ArrowRight className="w-4 h-4" />
                   </a>
                 </div>
@@ -224,7 +224,7 @@ export default function DashboardPage() {
                     {t("top_products")}
                   </h3>
                   <a href="/products" className="text-xs text-indigo-400 hover:text-indigo-300 font-semibold">
-                    View Catalog
+                    {t("view_catalog")}
                   </a>
                 </div>
 
@@ -234,15 +234,15 @@ export default function DashboardPage() {
                       <div className="min-w-0 flex-1 pr-3">
                         <p className="text-xs font-bold text-slate-200 truncate">{p.name}</p>
                         <p className="text-[11px] text-slate-400">
-                          {p.category} • Cost: ${p.costPrice} → Sell: ${p.sellingPrice}
+                          {p.category} • {t("cost_price")}: ${p.costPrice} → {t("selling_price")}: ${p.sellingPrice}
                         </p>
                       </div>
                       <div className="text-right shrink-0">
                         <span className="text-xs font-bold text-emerald-400 block">
-                          {p.grossMarginPercent.toFixed(1)}% margin
+                          {p.grossMarginPercent.toFixed(1)}% {t("margin_badge")}
                         </span>
                         <span className="text-[10px] text-slate-400">
-                          Stock: {p.stockQuantity} pcs
+                          {t("stock")}: {p.stockQuantity} {t("pcs")}
                         </span>
                       </div>
                     </div>
@@ -258,7 +258,7 @@ export default function DashboardPage() {
                     {t("branches")}
                   </h3>
                   <a href="/branches" className="text-xs text-cyan-400 hover:text-cyan-300 font-semibold">
-                    Manage Branches
+                    {t("branches")}
                   </a>
                 </div>
 
@@ -275,7 +275,7 @@ export default function DashboardPage() {
                           )}
                         </div>
                         <p className="text-[11px] text-slate-400">
-                          {b.employeeCount} staff • Exp: ${b.monthlyExpenses.toLocaleString()}
+                          {b.employeeCount} {t("staff_label")} • {t("monthly_opex")}: ${b.monthlyExpenses.toLocaleString()}
                         </p>
                       </div>
                       <div className="text-right">
@@ -283,7 +283,7 @@ export default function DashboardPage() {
                           ${b.monthlyRevenue.toLocaleString()}
                         </span>
                         <span className="text-[10px] text-emerald-400">
-                          +${b.netProfit.toLocaleString()} profit
+                          +${b.netProfit.toLocaleString()} {t("profit_label")}
                         </span>
                       </div>
                     </div>
