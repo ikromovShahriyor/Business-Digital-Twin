@@ -178,7 +178,7 @@ export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
           {/* Scalar API Docs Link */}
           <div className="pt-2">
             <a
-              href="http://localhost:5000/scalar"
+              href={typeof window !== "undefined" && (window.location.hostname === "localhost" || window.location.hostname === "127.0.0.1") ? "http://localhost:5000/scalar" : "https://github.com/ikromovShahriyor/Business-Digital-Twin#readme"}
               target="_blank"
               rel="noopener noreferrer"
               onClick={() => onClose?.()}

@@ -13,6 +13,14 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   title: "Business Digital Twin — Enterprise Simulation & Strategy Sandbox",
   description: "Production-ready SaaS platform for digital twin modeling, what-if strategic scenario simulations, and AI business diagnostics.",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/favicon.ico", sizes: "any" }
+    ],
+    shortcut: "/favicon.ico",
+    apple: "/icon.svg",
+  },
 };
 
 export default function RootLayout({
