@@ -70,19 +70,19 @@ export default function ReportsPage() {
     <MainLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <FileBarChart2 className="w-7 h-7 text-indigo-400" />
-              {t("reports_title")}
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-2.5 sm:gap-3">
+              <FileBarChart2 className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-400 shrink-0" />
+              <span>{t("reports_title")}</span>
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
               {t("reports_subtitle")}
             </p>
           </div>
           <button
             onClick={handleExportCSV}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all shadow-lg"
+            className="flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all shadow-lg w-full sm:w-auto"
           >
             <Download className="w-4 h-4" />
             <span>{t("export_csv")}</span>
@@ -96,7 +96,7 @@ export default function ReportsPage() {
         ) : (
           <div className="space-y-6">
             {/* Top 4 KPI Cards */}
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
               <div className="p-4 rounded-xl glass-card border border-slate-800/80">
                 <span className="text-xs font-semibold uppercase tracking-wider text-slate-400 block">{t("net_revenue_lbl")}</span>
                 <p className="text-2xl font-bold text-white mt-2">${statement.netRevenue.toLocaleString()}</p>
@@ -127,7 +127,7 @@ export default function ReportsPage() {
             {/* Income Statement & Cash Flow side-by-side */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
               {/* P&L Table */}
-              <div className="lg:col-span-7 glass-panel p-6 rounded-2xl border border-slate-800/80 space-y-4">
+              <div className="lg:col-span-7 glass-panel p-4 sm:p-6 rounded-2xl border border-slate-800/80 space-y-4">
                 <div className="flex items-center justify-between pb-3 border-b border-slate-800">
                   <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                     <TrendingUp className="w-4 h-4 text-indigo-400" />
@@ -191,7 +191,7 @@ export default function ReportsPage() {
 
               {/* Cash Flow Card */}
               {cashFlow && (
-                <div className="lg:col-span-5 glass-panel p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between space-y-6">
+                <div className="lg:col-span-5 glass-panel p-4 sm:p-6 rounded-2xl border border-slate-800/80 flex flex-col justify-between space-y-6">
                   <div>
                     <h3 className="text-sm font-bold text-white uppercase tracking-wider flex items-center gap-2">
                       <DollarSign className="w-4 h-4 text-emerald-400" />

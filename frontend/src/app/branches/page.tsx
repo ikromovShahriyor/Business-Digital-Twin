@@ -61,14 +61,14 @@ export default function BranchesPage() {
   return (
     <DashboardLayout>
       <div className="space-y-6">
-        <div className="flex items-center justify-between">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-xl font-bold text-slate-100">{t("branches_title")}</h1>
-            <p className="text-xs text-slate-400">{t("branches_subtitle")}</p>
+            <h1 className="text-xl sm:text-2xl font-bold text-slate-100">{t("branches_title")}</h1>
+            <p className="text-xs text-slate-400 mt-0.5">{t("branches_subtitle")}</p>
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>{t("new_branch_btn")}</span>
@@ -129,8 +129,8 @@ export default function BranchesPage() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="glass-panel p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4">
+          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="glass-panel p-5 sm:p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4 my-auto max-h-[90vh] overflow-y-auto">
               <h3 className="text-base font-bold text-slate-100">{t("create_branch_modal_title")}</h3>
               <form onSubmit={handleCreate} className="space-y-3 text-xs">
                 <div>
@@ -144,7 +144,7 @@ export default function BranchesPage() {
                     placeholder="Chilonzor Filiali"
                   />
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-slate-300 font-semibold block mb-1">{t("branch_code")}</label>
                     <input

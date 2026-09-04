@@ -25,7 +25,7 @@ export default function SettingsPage() {
           <p className="text-xs text-slate-400">{t("settings_subtitle")}</p>
         </div>
 
-        <div className="glass-panel p-6 sm:p-8 rounded-2xl border-slate-800 space-y-6">
+        <div className="glass-panel p-4 sm:p-8 rounded-2xl border-slate-800 space-y-6">
           <div className="flex items-center gap-3 pb-4 border-b border-slate-800">
             <div className="p-2 rounded-xl bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
               <Building2 className="w-5 h-5" />
@@ -106,15 +106,15 @@ export default function SettingsPage() {
               </div>
             </div>
 
-            <div className="pt-3 border-t border-slate-800 flex items-center justify-between">
-              {saved && (
-                <span className="text-xs font-bold text-emerald-400 animate-pulse">
+            <div className="pt-3 border-t border-slate-800 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-3">
+              {saved ? (
+                <span className="text-xs font-bold text-emerald-400 animate-pulse text-center sm:text-left">
                   {t("saved_success")}
                 </span>
-              )}
+              ) : <div />}
               <button
                 type="submit"
-                className="ml-auto flex items-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-lg shadow-indigo-600/30 transition-all"
+                className="flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white font-bold shadow-lg shadow-indigo-600/30 transition-all w-full sm:w-auto"
               >
                 <Save className="w-4 h-4" />
                 <span>{t("update_settings_btn")}</span>

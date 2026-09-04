@@ -26,7 +26,7 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-2xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-indigo-500/20">
+      <div className="glass-panel p-4 sm:p-6 rounded-2xl relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-indigo-500/20">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
             <span className="flex h-2.5 w-2.5 rounded-full bg-emerald-400 animate-ping" />
@@ -34,7 +34,7 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
               {t("twin_isolated_badge")}
             </span>
           </div>
-          <h2 className="text-xl font-bold text-slate-100">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-100">
             {snapshot.companyName} — {t("digital_twin")}
           </h2>
           <p className="text-xs text-slate-400 max-w-xl">
@@ -42,14 +42,14 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
           </p>
         </div>
 
-        <div className="flex items-center gap-4 bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-800">
-          <div className="text-right">
+        <div className="flex items-center justify-between sm:justify-end gap-4 bg-slate-900/80 px-4 py-2.5 rounded-xl border border-slate-800 w-full sm:w-auto">
+          <div className="text-left sm:text-right">
             <p className="text-[10px] text-slate-400 uppercase font-semibold">
               {t("twin_health_indicator")}
             </p>
             <p className="text-lg font-bold text-emerald-400">94 / 100</p>
           </div>
-          <Activity className="w-8 h-8 text-emerald-400 animate-pulse" />
+          <Activity className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400 animate-pulse" />
         </div>
       </div>
 
@@ -158,12 +158,12 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
       </div>
 
       {/* Net Retained Bottom-Line Card */}
-      <div className="glass-panel p-6 rounded-2xl border-emerald-500/30 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-emerald-950/20 flex flex-col md:flex-row items-center justify-between gap-6">
+      <div className="glass-panel p-4 sm:p-6 rounded-2xl border-emerald-500/30 bg-gradient-to-r from-slate-900/90 via-slate-900/60 to-emerald-950/20 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-5">
         <div>
           <span className="text-xs font-bold text-emerald-400 uppercase tracking-wider">
             {t("node_net_margin")}
           </span>
-          <h3 className="text-3xl font-black text-slate-100 mt-1">
+          <h3 className="text-2xl sm:text-3xl font-black text-slate-100 mt-1">
             ${snapshot.monthlyNetProfit.toLocaleString()}{" "}
             <span className="text-sm font-bold text-emerald-400">
               ({snapshot.netMarginPercent.toFixed(1)}% {t("net_margin")})
@@ -174,10 +174,10 @@ export function DigitalTwinCanvas({ snapshot }: DigitalTwinCanvasProps) {
           </p>
         </div>
 
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-3 w-full sm:w-auto">
           <a
             href="/simulator"
-            className="flex items-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white text-xs font-bold shadow-lg shadow-indigo-500/25 transition-all"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-5 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white text-xs font-bold shadow-lg shadow-indigo-500/25 transition-all"
           >
             <span>{t("quick_simulate")}</span>
             <ArrowRight className="w-4 h-4" />

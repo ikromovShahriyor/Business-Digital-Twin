@@ -26,10 +26,16 @@ import {
   Settings,
   LogOut,
   Building2,
-  ExternalLink
+  ExternalLink,
+  X
 } from "lucide-react";
 
-export function Sidebar() {
+interface SidebarProps {
+  isOpen?: boolean;
+  onClose?: () => void;
+}
+
+export function Sidebar({ isOpen = false, onClose }: SidebarProps) {
   const pathname = usePathname();
   const { t } = useI18n();
   const { currentCompany, logout } = useAuth();
@@ -76,101 +82,131 @@ export function Sidebar() {
   ];
 
   return (
-    <aside className="w-64 h-screen flex flex-col glass-panel border-r border-slate-800/80 sticky top-0 shrink-0 z-40 bg-slate-950/70 backdrop-blur-xl">
-      {/* Brand Header */}
-      <div className="p-4 border-b border-slate-800/80 flex items-center gap-3">
-        <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/30 ring-1 ring-white/20">
-          <Cpu className="w-5 h-5 text-white animate-pulse-slow" />
-        </div>
-        <div className="overflow-hidden">
-          <h1 className="font-bold text-sm tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-indigo-200 truncate">
-            {t("app_name")}
-          </h1>
-          <p className="text-[10px] text-slate-400 truncate uppercase tracking-widest font-semibold">
-            Enterprise Twin OS
-          </p>
-        </div>
-      </div>
+    <>
+      {/* Mobile Backdrop Overlay */}
+      <div
+        onClick={onClose}
+        className={`fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-40 lg:hidden transition-opacity duration-300 ${
+          isOpen ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+        }`}
+      />
 
-      {/* Active Workspace Pill */}
-      {currentCompany && (
-        <div className="mx-3 mt-3 px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center gap-2 text-xs">
-          <Building2 className="w-4 h-4 text-indigo-400 shrink-0" />
-          <div className="truncate flex-1">
-            <span className="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">{t("workspace")}</span>
-            <span className="font-semibold text-slate-200 text-xs truncate block">{currentCompany.name}</span>
-          </div>
-        </div>
-      )}
-
-      {/* Navigation List */}
-      <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4">
-        {navSections.map((section) => (
-          <div key={section.title} className="space-y-1">
-            <h3 className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-500">
-              {section.title}
-            </h3>
-            <div className="space-y-0.5">
-              {section.items.map((item) => {
-                const Icon = item.icon;
-                const isActive = pathname === item.href;
-                return (
-                  <Link
-                    key={item.href}
-                    href={item.href}
-                    className={`flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium transition-all group ${
-                      isActive
-                        ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 shadow-sm shadow-indigo-900/40"
-                        : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
-                    }`}
-                  >
-                    <div className="flex items-center gap-2.5 min-w-0">
-                      <Icon className={`w-4 h-4 transition-transform group-hover:scale-110 shrink-0 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
-                      <span className="truncate">{item.label}</span>
-                    </div>
-                    {item.badge && (
-                      <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase ${
-                        item.badge === "Live" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" :
-                        item.badge === "AI" ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" :
-                        "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
-                      }`}>
-                        {item.badge}
-                      </span>
-                    )}
-                  </Link>
-                );
-              })}
+      <aside
+        className={`fixed inset-y-0 left-0 z-50 w-72 max-w-[85vw] lg:w-64 lg:static lg:translate-x-0 h-screen flex flex-col glass-panel border-r border-slate-800/80 shrink-0 bg-slate-950/95 lg:bg-slate-950/70 backdrop-blur-xl transition-transform duration-300 ease-in-out shadow-2xl lg:shadow-none ${
+          isOpen ? "translate-x-0" : "-translate-x-full"
+        }`}
+      >
+        {/* Brand Header */}
+        <div className="p-4 border-b border-slate-800/80 flex items-center justify-between">
+          <div className="flex items-center gap-3 overflow-hidden">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 via-indigo-500 to-cyan-400 flex items-center justify-center shadow-lg shadow-indigo-500/30 ring-1 ring-white/20 shrink-0">
+              <Cpu className="w-5 h-5 text-white animate-pulse-slow" />
+            </div>
+            <div className="overflow-hidden">
+              <h1 className="font-bold text-sm tracking-tight bg-clip-text text-transparent bg-gradient-to-r from-white via-slate-100 to-indigo-200 truncate">
+                {t("app_name")}
+              </h1>
+              <p className="text-[10px] text-slate-400 truncate uppercase tracking-widest font-semibold">
+                Enterprise Twin OS
+              </p>
             </div>
           </div>
-        ))}
 
-        {/* Scalar API Docs Link */}
-        <div className="pt-2">
-          <a
-            href="http://localhost:5000/scalar"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="flex items-center justify-between px-3 py-1.5 rounded-lg text-xs font-medium text-amber-400/90 hover:text-amber-300 hover:bg-amber-950/30 border border-amber-500/20 transition-all group"
+          {/* Close button on mobile */}
+          <button
+            onClick={onClose}
+            aria-label="Close navigation"
+            className="lg:hidden p-1.5 rounded-lg text-slate-400 hover:text-white hover:bg-slate-800/80 transition-colors"
           >
-            <div className="flex items-center gap-2 min-w-0">
-              <ExternalLink className="w-3.5 h-3.5" />
-              <span>Scalar API Docs</span>
-            </div>
-            <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">OpenAPI</span>
-          </a>
+            <X className="w-5 h-5" />
+          </button>
         </div>
-      </nav>
 
-      {/* Footer / Logout */}
-      <div className="p-3 border-t border-slate-800/80">
-        <button
-          onClick={logout}
-          className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-rose-400 hover:bg-rose-950/30 hover:text-rose-300 transition-colors"
-        >
-          <LogOut className="w-4 h-4" />
-          <span>{t("logout")}</span>
-        </button>
-      </div>
-    </aside>
+        {/* Active Workspace Pill */}
+        {currentCompany && (
+          <div className="mx-3 mt-3 px-3 py-2 rounded-lg bg-slate-900/80 border border-slate-800 flex items-center gap-2 text-xs">
+            <Building2 className="w-4 h-4 text-indigo-400 shrink-0" />
+            <div className="truncate flex-1">
+              <span className="text-slate-500 block text-[9px] uppercase font-bold tracking-wider">{t("workspace")}</span>
+              <span className="font-semibold text-slate-200 text-xs truncate block">{currentCompany.name}</span>
+            </div>
+          </div>
+        )}
+
+        {/* Navigation List */}
+        <nav className="flex-1 overflow-y-auto px-3 py-3 space-y-4 touch-scroll">
+          {navSections.map((section) => (
+            <div key={section.title} className="space-y-1">
+              <h3 className="px-3 text-[10px] font-bold uppercase tracking-wider text-slate-500">
+                {section.title}
+              </h3>
+              <div className="space-y-0.5">
+                {section.items.map((item) => {
+                  const Icon = item.icon;
+                  const isActive = pathname === item.href;
+                  return (
+                    <Link
+                      key={item.href}
+                      href={item.href}
+                      onClick={() => onClose?.()}
+                      className={`flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium transition-all group ${
+                        isActive
+                          ? "bg-indigo-600/20 text-indigo-300 border border-indigo-500/40 shadow-sm shadow-indigo-900/40"
+                          : "text-slate-400 hover:text-slate-200 hover:bg-slate-800/60"
+                      }`}
+                    >
+                      <div className="flex items-center gap-2.5 min-w-0">
+                        <Icon className={`w-4 h-4 transition-transform group-hover:scale-110 shrink-0 ${isActive ? "text-indigo-400" : "text-slate-400"}`} />
+                        <span className="truncate">{item.label}</span>
+                      </div>
+                      {item.badge && (
+                        <span className={`text-[9px] px-1.5 py-0.5 rounded-full font-bold uppercase ${
+                          item.badge === "Live" ? "bg-emerald-500/20 text-emerald-300 border border-emerald-500/30" :
+                          item.badge === "AI" ? "bg-cyan-500/20 text-cyan-300 border border-cyan-500/30" :
+                          "bg-indigo-500/20 text-indigo-300 border border-indigo-500/30"
+                        }`}>
+                          {item.badge}
+                        </span>
+                      )}
+                    </Link>
+                  );
+                })}
+              </div>
+            </div>
+          ))}
+
+          {/* Scalar API Docs Link */}
+          <div className="pt-2">
+            <a
+              href="http://localhost:5000/scalar"
+              target="_blank"
+              rel="noopener noreferrer"
+              onClick={() => onClose?.()}
+              className="flex items-center justify-between px-3 py-2 rounded-lg text-xs font-medium text-amber-400/90 hover:text-amber-300 hover:bg-amber-950/30 border border-amber-500/20 transition-all group"
+            >
+              <div className="flex items-center gap-2 min-w-0">
+                <ExternalLink className="w-3.5 h-3.5" />
+                <span>Scalar API Docs</span>
+              </div>
+              <span className="text-[9px] bg-amber-500/20 text-amber-300 px-1.5 py-0.5 rounded font-mono">OpenAPI</span>
+            </a>
+          </div>
+        </nav>
+
+        {/* Footer / Logout */}
+        <div className="p-3 border-t border-slate-800/80">
+          <button
+            onClick={() => {
+              onClose?.();
+              logout();
+            }}
+            className="w-full flex items-center gap-2.5 px-3 py-2 rounded-lg text-xs text-rose-400 hover:bg-rose-950/30 hover:text-rose-300 transition-colors"
+          >
+            <LogOut className="w-4 h-4" />
+            <span>{t("logout")}</span>
+          </button>
+        </div>
+      </aside>
+    </>
   );
 }

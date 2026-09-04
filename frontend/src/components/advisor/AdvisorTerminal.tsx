@@ -109,7 +109,7 @@ export function AdvisorTerminal() {
   return (
     <div className="space-y-6">
       {/* Header Banner */}
-      <div className="glass-panel p-6 rounded-2xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-cyan-500/20">
+      <div className="glass-panel p-4 sm:p-6 rounded-2xl relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-cyan-500/20">
         <div>
           <div className="flex items-center gap-2">
             <span className="p-1 rounded bg-cyan-500/20 text-cyan-400 border border-cyan-500/30">
@@ -119,7 +119,7 @@ export function AdvisorTerminal() {
               {t("ai_strategic_diagnostic")}
             </span>
           </div>
-          <h2 className="text-xl font-bold text-slate-100 mt-1">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-100 mt-1">
             {t("advisor_title")}
           </h2>
           <p className="text-xs text-slate-400 max-w-xl">
@@ -128,8 +128,8 @@ export function AdvisorTerminal() {
         </div>
 
         {analysis && (
-          <div className="flex items-center gap-3 bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800">
-            <div className="text-right">
+          <div className="flex items-center justify-between sm:justify-end gap-3 bg-slate-900/80 px-4 py-2 rounded-xl border border-slate-800 w-full sm:w-auto">
+            <div className="text-left sm:text-right">
               <span className="text-[10px] text-slate-400 uppercase font-semibold">
                 {t("health_score")}
               </span>
@@ -202,11 +202,11 @@ export function AdvisorTerminal() {
         </div>
 
         {/* Messages Feed */}
-        <div className="flex-1 overflow-y-auto p-5 space-y-4">
+        <div className="flex-1 overflow-y-auto p-3.5 sm:p-5 space-y-3 sm:space-y-4 touch-scroll">
           {messages.map((m, i) => (
             <div
               key={i}
-              className={`flex items-start gap-3 ${
+              className={`flex items-start gap-2.5 sm:gap-3 ${
                 m.sender === "user" ? "flex-row-reverse" : "flex-row"
               }`}
             >
@@ -221,7 +221,7 @@ export function AdvisorTerminal() {
               </div>
 
               <div
-                className={`max-w-2xl rounded-2xl px-4 py-3 text-xs leading-relaxed ${
+                className={`max-w-[88%] sm:max-w-2xl rounded-2xl px-3.5 sm:px-4 py-2.5 sm:py-3 text-xs leading-relaxed ${
                   m.sender === "user"
                     ? "bg-indigo-600 text-white rounded-tr-none"
                     : "bg-slate-900/80 border border-slate-800 text-slate-200 rounded-tl-none whitespace-pre-line"
@@ -244,7 +244,7 @@ export function AdvisorTerminal() {
         </div>
 
         {/* Quick Question Chips */}
-        <div className="px-5 py-2 border-t border-slate-800/60 bg-slate-900/40 flex items-center gap-2 overflow-x-auto">
+        <div className="px-3 sm:px-5 py-2 border-t border-slate-800/60 bg-slate-900/40 flex items-center gap-2 overflow-x-auto touch-scroll">
           {quickQuestions.map((q, i) => (
             <button
               key={i}

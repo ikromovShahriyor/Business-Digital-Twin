@@ -101,19 +101,19 @@ export default function PaymentsPage() {
     <MainLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <Wallet className="w-7 h-7 text-indigo-400" />
-              {t("payments")}
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
+              <Wallet className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-400 shrink-0" />
+              <span>{t("payments")}</span>
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
               {t("cash_flow")}
             </p>
           </div>
           <button
             onClick={() => setIsModalOpen(true)}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>{t("add_new")}</span>
@@ -121,7 +121,7 @@ export default function PaymentsPage() {
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 sm:gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("node_inflow")}</span>
@@ -153,7 +153,7 @@ export default function PaymentsPage() {
         </div>
 
         {/* Filters */}
-        <div className="flex items-center gap-3">
+        <div className="flex flex-wrap items-center gap-3">
           <Filter className="w-4 h-4 text-slate-400" />
           <select
             value={typeFilter}
@@ -241,8 +241,8 @@ export default function PaymentsPage() {
 
         {/* Create Payment Modal */}
         {isModalOpen && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-6 shadow-2xl animate-fade-in">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-5 sm:p-6 shadow-2xl animate-fade-in my-auto max-h-[90vh] overflow-y-auto">
               <h2 className="text-lg font-bold text-white mb-4">
                 Yangi Kassa Orderi / To'lov Yaratish
               </h2>
@@ -288,7 +288,7 @@ export default function PaymentsPage() {
                   />
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-slate-300 mb-1">To'lov Usuli</label>
                     <select

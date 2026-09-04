@@ -117,7 +117,7 @@ export function ScenarioStudio() {
   return (
     <div className="space-y-6">
       {/* Header */}
-      <div className="glass-panel p-6 rounded-2xl relative overflow-hidden flex flex-col md:flex-row items-start md:items-center justify-between gap-4 border-indigo-500/20">
+      <div className="glass-panel p-4 sm:p-6 rounded-2xl relative overflow-hidden flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 border-indigo-500/20">
         <div>
           <div className="flex items-center gap-2">
             <span className="p-1 rounded bg-indigo-500/20 text-indigo-400 border border-indigo-500/30">
@@ -127,7 +127,7 @@ export function ScenarioStudio() {
               Digital Twin Sandbox
             </span>
           </div>
-          <h2 className="text-xl font-bold text-slate-100 mt-1">
+          <h2 className="text-lg sm:text-xl font-bold text-slate-100 mt-1">
             {t("simulator_title")}
           </h2>
           <p className="text-xs text-slate-400 max-w-2xl">
@@ -135,11 +135,11 @@ export function ScenarioStudio() {
           </p>
         </div>
 
-        <div className="flex items-center gap-2">
+        <div className="flex items-center gap-2 w-full sm:w-auto">
           <button
             onClick={() => handleRunSimulation(false)}
             disabled={loading}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition-all disabled:opacity-50"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/30 transition-all disabled:opacity-50"
           >
             <Play className="w-4 h-4 fill-current" />
             <span>{loading ? "Calculating..." : t("run_simulation_btn")}</span>
@@ -147,7 +147,7 @@ export function ScenarioStudio() {
           <button
             onClick={() => handleRunSimulation(true)}
             disabled={loading}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all disabled:opacity-50"
+            className="flex-1 sm:flex-initial flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold transition-all disabled:opacity-50"
           >
             <Save className="w-4 h-4" />
             <span>{saveSuccess ? "Saved!" : t("save_scenario_btn")}</span>

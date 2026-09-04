@@ -56,7 +56,7 @@ export default function EmployeesPage() {
           </div>
           <button
             onClick={() => setShowModal(true)}
-            className="flex items-center gap-2 px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold shadow-lg shadow-indigo-600/20 active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>{t("new_employee_btn")}</span>
@@ -125,11 +125,11 @@ export default function EmployeesPage() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-4">
-            <div className="glass-panel p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4">
+          <div className="fixed inset-0 bg-slate-950/80 backdrop-blur-sm z-50 flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="glass-panel p-5 sm:p-6 rounded-2xl border-slate-700 w-full max-w-md space-y-4 my-auto max-h-[90vh] overflow-y-auto">
               <h3 className="text-base font-bold text-slate-100">{t("create_employee_modal_title")}</h3>
               <form onSubmit={handleCreate} className="space-y-3 text-xs">
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-slate-300 font-semibold block mb-1">{t("first_name")}</label>
                     <input
@@ -152,7 +152,7 @@ export default function EmployeesPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-slate-300 font-semibold block mb-1">{t("position")}</label>
                     <input
@@ -174,7 +174,7 @@ export default function EmployeesPage() {
                   </div>
                 </div>
 
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
                   <div>
                     <label className="text-slate-300 font-semibold block mb-1">{t("salary")} ($)</label>
                     <input

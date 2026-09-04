@@ -85,24 +85,24 @@ export default function InventoryPage() {
     <MainLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <Boxes className="w-7 h-7 text-indigo-400" />
-              {t("inventory_title")}
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
+              <Boxes className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-400 shrink-0" />
+              <span>{t("inventory_title")}</span>
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
               {t("inventory_subtitle")}
             </p>
           </div>
 
           <div className="flex items-center gap-3">
-            <div className="flex items-center gap-2 px-3 py-1.5 rounded-xl bg-slate-900 border border-slate-800 text-xs">
-              <Building className="w-4 h-4 text-slate-400" />
+            <div className="w-full sm:w-auto flex items-center gap-2 px-3 py-2 rounded-xl bg-slate-900 border border-slate-800 text-xs">
+              <Building className="w-4 h-4 text-slate-400 shrink-0" />
               <select
                 value={selectedBranch}
                 onChange={(e) => setSelectedBranch(e.target.value)}
-                className="bg-transparent text-slate-200 focus:outline-none"
+                className="w-full sm:w-auto bg-transparent text-slate-200 focus:outline-none"
               >
                 <option value="">{t("filter_by_branch")}</option>
                 {branches.map((b) => (
@@ -114,7 +114,7 @@ export default function InventoryPage() {
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("stock_valuation_card")}</span>
@@ -336,8 +336,8 @@ export default function InventoryPage() {
 
         {/* Adjust Stock Modal */}
         {adjustItem && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-6 shadow-2xl animate-fade-in">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-5 sm:p-6 shadow-2xl animate-fade-in my-auto max-h-[90vh] overflow-y-auto">
               <h2 className="text-lg font-bold text-white mb-1">
                 {t("adjust_stock_modal_title")}
               </h2>

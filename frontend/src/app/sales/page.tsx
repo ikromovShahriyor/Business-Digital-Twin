@@ -140,13 +140,13 @@ export default function SalesPage() {
     <MainLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <Receipt className="w-7 h-7 text-indigo-400" />
-              Sotuvlar & Buyurtmalar Jurnali
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
+              <Receipt className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-400 shrink-0" />
+              <span>Sotuvlar & Buyurtmalar Jurnali</span>
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
               {t("sales")}
             </p>
           </div>
@@ -158,7 +158,7 @@ export default function SalesPage() {
               }));
               setShowModal(true);
             }}
-            className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all hover:scale-[1.02]"
+            className="w-full sm:w-auto flex items-center justify-center gap-2 px-4 py-2.5 rounded-xl bg-gradient-to-r from-indigo-600 to-indigo-500 hover:from-indigo-500 hover:to-indigo-400 text-white font-semibold text-sm shadow-lg shadow-indigo-600/30 transition-all active:scale-95"
           >
             <Plus className="w-4 h-4" />
             <span>{t("new_sale_btn")}</span>
@@ -166,7 +166,7 @@ export default function SalesPage() {
         </div>
 
         {/* Stats Row */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 sm:gap-4">
           <div className="p-4 rounded-xl glass-card border border-slate-800/80">
             <div className="flex items-center justify-between">
               <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">{t("total_revenue_stat")}</span>
@@ -265,13 +265,13 @@ export default function SalesPage() {
 
         {/* Modal */}
         {showModal && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-2xl rounded-2xl glass-panel border border-slate-700/80 p-6 shadow-2xl animate-fade-in max-h-[90vh] overflow-y-auto">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="w-full max-w-2xl rounded-2xl glass-panel border border-slate-700/80 p-4 sm:p-6 shadow-2xl animate-fade-in my-auto max-h-[90vh] overflow-y-auto">
               <h2 className="text-lg font-bold text-white mb-4">
                 Yangi Sotuv Fakturasi Yaratish
               </h2>
               <form onSubmit={handleCreate} className="space-y-4 text-sm">
-                <div className="grid grid-cols-3 gap-3">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <div>
                     <label className="block text-xs font-medium text-slate-300 mb-1">Filial *</label>
                     <select
@@ -331,65 +331,67 @@ export default function SalesPage() {
 
                   <div className="space-y-2 max-h-48 overflow-y-auto pr-1">
                     {formData.items.map((item, idx) => (
-                      <div key={idx} className="flex items-center gap-2 bg-slate-900/90 p-2.5 rounded-lg border border-slate-800">
+                      <div key={idx} className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2 bg-slate-900/90 p-2.5 rounded-lg border border-slate-800">
                         <select
                           value={item.productId}
                           onChange={(e) => handleProductSelect(idx, e.target.value)}
-                          className="flex-1 px-2 py-1.5 rounded bg-slate-800 border border-slate-700 text-xs text-white"
+                          className="w-full sm:flex-1 px-2 py-1.5 rounded bg-slate-800 border border-slate-700 text-xs text-white"
                         >
                           {products.map((p) => (
                             <option key={p.id} value={p.id}>{p.name} (Narx: ${p.sellingPrice})</option>
                           ))}
                         </select>
 
-                        <div className="w-20">
-                          <input
-                            type="number"
-                            min="1"
-                            value={item.quantity}
-                            onChange={(e) => {
-                              const newItems = [...formData.items];
-                              newItems[idx].quantity = Number(e.target.value);
-                              setFormData({ ...formData, items: newItems });
-                            }}
-                            className="w-full px-2 py-1.5 rounded bg-slate-800 border border-slate-700 text-xs text-white text-right"
-                            placeholder="Soni"
-                          />
-                        </div>
+                        <div className="flex items-center gap-2">
+                          <div className="w-20">
+                            <input
+                              type="number"
+                              min="1"
+                              value={item.quantity}
+                              onChange={(e) => {
+                                const newItems = [...formData.items];
+                                newItems[idx].quantity = Number(e.target.value);
+                                setFormData({ ...formData, items: newItems });
+                              }}
+                              className="w-full px-2 py-1.5 rounded bg-slate-800 border border-slate-700 text-xs text-white text-right"
+                              placeholder="Soni"
+                            />
+                          </div>
 
-                        <div className="w-24">
-                          <input
-                            type="number"
-                            step="0.01"
-                            value={item.unitPrice}
-                            onChange={(e) => {
-                              const newItems = [...formData.items];
-                              newItems[idx].unitPrice = Number(e.target.value);
-                              setFormData({ ...formData, items: newItems });
-                            }}
-                            className="w-full px-2 py-1.5 rounded bg-slate-800 border border-slate-700 text-xs text-white text-right"
-                            placeholder="Narxi"
-                          />
-                        </div>
+                          <div className="w-24">
+                            <input
+                              type="number"
+                              step="0.01"
+                              value={item.unitPrice}
+                              onChange={(e) => {
+                                const newItems = [...formData.items];
+                                newItems[idx].unitPrice = Number(e.target.value);
+                                setFormData({ ...formData, items: newItems });
+                              }}
+                              className="w-full px-2 py-1.5 rounded bg-slate-800 border border-slate-700 text-xs text-white text-right"
+                              placeholder="Narxi"
+                            />
+                          </div>
 
-                        <div className="w-24 text-right font-mono text-xs font-bold text-emerald-400">
-                          ${(item.quantity * item.unitPrice).toLocaleString()}
-                        </div>
+                          <div className="flex-1 sm:w-24 text-right font-mono text-xs font-bold text-emerald-400">
+                            ${(item.quantity * item.unitPrice).toLocaleString()}
+                          </div>
 
-                        <button
-                          type="button"
-                          onClick={() => handleRemoveItem(idx)}
-                          disabled={formData.items.length <= 1}
-                          className="p-1 text-slate-500 hover:text-rose-400 disabled:opacity-20"
-                        >
-                          <Trash2 className="w-3.5 h-3.5" />
-                        </button>
+                          <button
+                            type="button"
+                            onClick={() => handleRemoveItem(idx)}
+                            disabled={formData.items.length <= 1}
+                            className="p-1 text-slate-500 hover:text-rose-400 disabled:opacity-20 shrink-0"
+                          >
+                            <Trash2 className="w-4 h-4 sm:w-3.5 sm:h-3.5" />
+                          </button>
+                        </div>
                       </div>
                     ))}
                   </div>
                 </div>
 
-                <div className="grid grid-cols-3 gap-3 pt-2">
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2">
                   <div>
                     <label className="block text-xs font-medium text-slate-300 mb-1">Chegirma ($)</label>
                     <input
@@ -427,13 +429,13 @@ export default function SalesPage() {
                 </div>
 
                 {/* Total Preview */}
-                <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex items-center justify-between text-xs">
+                <div className="p-3.5 rounded-xl bg-slate-900/80 border border-slate-800 flex flex-col sm:flex-row sm:items-center sm:justify-between gap-2 text-xs">
                   <div>
                     <span className="text-slate-400 block">Jami Hisob-Faktura Qiymati:</span>
                     <span className="text-lg font-bold text-white">${totalAmount.toLocaleString()}</span>
                   </div>
                   {totalAmount > formData.paidAmount && (
-                    <div className="text-right">
+                    <div className="sm:text-right">
                       <span className="text-amber-400 block font-semibold">Nasiyaga Qolgan Qarz:</span>
                       <span className="text-base font-bold text-amber-400">
                         ${Math.max(0, totalAmount - formData.paidAmount).toLocaleString()}
@@ -442,17 +444,17 @@ export default function SalesPage() {
                   )}
                 </div>
 
-                <div className="flex items-center justify-end gap-3 pt-3 border-t border-slate-800">
+                <div className="flex flex-col-reverse sm:flex-row sm:items-center sm:justify-end gap-3 pt-3 border-t border-slate-800">
                   <button
                     type="button"
                     onClick={() => setShowModal(false)}
-                    className="px-4 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white"
+                    className="w-full sm:w-auto px-4 py-2 rounded-lg text-xs font-semibold text-slate-400 hover:text-white text-center"
                   >
                     Bekor qilish
                   </button>
                   <button
                     type="submit"
-                    className="px-5 py-2 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30"
+                    className="w-full sm:w-auto px-5 py-2.5 rounded-lg bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold shadow-lg shadow-indigo-600/30 text-center"
                   >
                     Sotuvni Rasmiylashtirish & Ombordan Chiqarish
                   </button>

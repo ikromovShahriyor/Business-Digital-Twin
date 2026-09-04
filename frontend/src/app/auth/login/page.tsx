@@ -125,7 +125,7 @@ export default function LoginPage() {
             <p className="text-[11px] font-bold uppercase tracking-wider text-slate-400 text-center">
               {t("quick_demo_logins")}
             </p>
-            <div className="grid grid-cols-2 gap-2">
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <button
                 type="button"
                 onClick={() => {

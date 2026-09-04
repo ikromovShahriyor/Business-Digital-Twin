@@ -76,13 +76,13 @@ export default function DebtsPage() {
     <MainLayout>
       <div className="space-y-6">
         {/* Header */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
           <div>
-            <h1 className="text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
-              <Hourglass className="w-7 h-7 text-indigo-400" />
-              Nasiya va Qarzlar Boshqaruvi
+            <h1 className="text-xl sm:text-2xl font-extrabold tracking-tight text-white flex items-center gap-3">
+              <Hourglass className="w-6 h-6 sm:w-7 sm:h-7 text-indigo-400 shrink-0" />
+              <span>Nasiya va Qarzlar Boshqaruvi</span>
             </h1>
-            <p className="text-sm text-slate-400 mt-1">
+            <p className="text-xs sm:text-sm text-slate-400 mt-1">
               Mijozlardan kutilayotgan nasiya mablag'lari (Receivables) va yetkazib beruvchilarga to'lanadigan qarzlar (Payables)
             </p>
           </div>
@@ -90,7 +90,7 @@ export default function DebtsPage() {
 
         {/* Stats Row */}
         {summary && (
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
             <div className="p-4 rounded-xl glass-card border border-slate-800/80">
               <div className="flex items-center justify-between">
                 <span className="text-xs font-semibold uppercase tracking-wider text-slate-400">Mijozlar Nasiyasi</span>
@@ -138,7 +138,7 @@ export default function DebtsPage() {
         )}
 
         {/* Tab Toggle */}
-        <div className="flex border-b border-slate-800 gap-6 text-sm font-semibold">
+        <div className="flex border-b border-slate-800 gap-3 sm:gap-6 text-xs sm:text-sm font-semibold overflow-x-auto pb-1">
           <button
             onClick={() => setActiveTab("CustomerDebt")}
             className={`pb-3 flex items-center gap-2 border-b-2 transition-all ${
@@ -257,8 +257,8 @@ export default function DebtsPage() {
 
         {/* Pay Modal */}
         {selectedDebt && (
-          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-4">
-            <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-6 shadow-2xl animate-fade-in">
+          <div className="fixed inset-0 z-50 bg-black/70 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
+            <div className="w-full max-w-md rounded-2xl glass-panel border border-slate-700/80 p-5 sm:p-6 shadow-2xl animate-fade-in my-auto max-h-[90vh] overflow-y-auto">
               <h2 className="text-lg font-bold text-white mb-1">
                 Qarz To'lovini Qabul Qilish / O'tkazish
               </h2>

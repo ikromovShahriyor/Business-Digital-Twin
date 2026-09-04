@@ -13,10 +13,15 @@ import {
   Check,
   User,
   ShieldCheck,
-  ChevronDown
+  ChevronDown,
+  Menu
 } from "lucide-react";
 
-export function Navbar() {
+interface NavbarProps {
+  onOpenMobileSidebar?: () => void;
+}
+
+export function Navbar({ onOpenMobileSidebar }: NavbarProps) {
   const { t, language, setLanguage } = useI18n();
   const { user, currentCompany, availableCompanies, switchCompany } = useAuth();
   const [notifications, setNotifications] = useState<Notification[]>([]);
@@ -48,21 +53,29 @@ export function Navbar() {
   ];
 
   return (
-    <header className="h-16 border-b border-slate-800/80 glass-panel sticky top-0 z-30 px-6 flex items-center justify-between">
-      {/* Search Input */}
-      <div className="flex items-center gap-2 max-w-md w-full">
-        <div className="relative w-full">
+    <header className="h-16 border-b border-slate-800/80 glass-panel sticky top-0 z-30 px-3 sm:px-6 flex items-center justify-between gap-2">
+      {/* Search & Hamburger Menu */}
+      <div className="flex items-center gap-2 flex-1 min-w-0 max-w-md">
+        <button
+          onClick={onOpenMobileSidebar}
+          aria-label="Open sidebar navigation"
+          className="lg:hidden p-2 rounded-xl bg-slate-800/70 hover:bg-slate-700/80 text-slate-300 border border-slate-700/70 shrink-0 active:scale-95 transition-transform"
+        >
+          <Menu className="w-4 h-4 text-indigo-400" />
+        </button>
+
+        <div className="relative flex-1 min-w-0">
           <Search className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2" />
           <input
             type="text"
             placeholder={t("search_placeholder")}
-            className="w-full pl-9 pr-4 py-1.5 rounded-lg glass-input text-xs placeholder:text-slate-500 focus:ring-1 focus:ring-indigo-500"
+            className="w-full pl-9 pr-3 py-1.5 rounded-lg glass-input text-xs placeholder:text-slate-500 focus:ring-1 focus:ring-indigo-500"
           />
         </div>
       </div>
 
       {/* Right Controls */}
-      <div className="flex items-center gap-3">
+      <div className="flex items-center gap-2 sm:gap-3 shrink-0">
         {/* Workspace Switcher */}
         {availableCompanies.length > 0 && (
           <div className="relative">
@@ -72,17 +85,17 @@ export function Navbar() {
                 setShowLang(false);
                 setShowNotifs(false);
               }}
-              className="flex items-center gap-2 px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700/60 border border-slate-700/60 text-xs text-slate-200 transition-colors"
+              className="flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1.5 rounded-lg bg-slate-800/60 hover:bg-slate-700/60 border border-slate-700/60 text-xs text-slate-200 transition-colors"
             >
-              <Building2 className="w-3.5 h-3.5 text-indigo-400" />
-              <span className="font-medium max-w-[120px] truncate">
+              <Building2 className="w-3.5 h-3.5 text-indigo-400 shrink-0" />
+              <span className="font-medium max-w-[80px] sm:max-w-[120px] truncate hidden xs:inline">
                 {currentCompany?.name || "Company"}
               </span>
-              <ChevronDown className="w-3.5 h-3.5 text-slate-400" />
+              <ChevronDown className="w-3.5 h-3.5 text-slate-400 shrink-0" />
             </button>
 
             {showWorkspace && (
-              <div className="absolute right-0 mt-2 w-56 rounded-xl glass-panel border border-slate-700 shadow-xl p-1.5 z-50">
+              <div className="absolute right-0 mt-2 w-56 max-w-[calc(100vw-1.5rem)] rounded-xl glass-panel border border-slate-700 shadow-xl p-1.5 z-50">
                 <p className="px-2 py-1 text-[10px] text-slate-400 uppercase font-semibold">
                   {t("switch_workspace")}
                 </p>
@@ -130,7 +143,7 @@ export function Navbar() {
           </button>
 
           {showLang && (
-            <div className="absolute right-0 mt-2 w-36 rounded-xl glass-panel border border-slate-700 shadow-xl p-1 z-50">
+            <div className="absolute right-0 mt-2 w-36 max-w-[calc(100vw-1.5rem)] rounded-xl glass-panel border border-slate-700 shadow-xl p-1 z-50">
               {languages.map((l) => (
                 <button
                   key={l.code}
@@ -171,7 +184,7 @@ export function Navbar() {
           </button>
 
           {showNotifs && (
-            <div className="absolute right-0 mt-2 w-80 rounded-xl glass-panel border border-slate-700 shadow-xl p-3 z-50">
+            <div className="absolute right-0 mt-2 w-80 max-w-[calc(100vw-1.5rem)] rounded-xl glass-panel border border-slate-700 shadow-xl p-3 z-50">
               <div className="flex items-center justify-between pb-2 mb-2 border-b border-slate-700/60">
                 <span className="font-semibold text-xs text-slate-200">
                   {t("notifications")}
